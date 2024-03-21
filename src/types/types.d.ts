@@ -8,17 +8,10 @@ interface ElementInfo {
   repeat?: number;
 }
 
-enum Roles {
-    Member,
-    Captain,
-    Elite,
-    Leader
-}
-
-type SeasonalMemberData = {
+type SeasonalPlayerData = {
   name: string;
   points: number;
   role: number;
 };
 
-type seasonData = {[key: string]: SeasonalMemberData[]}
+type SeasonalData = {[key: string]: SeasonalMemberData[]}

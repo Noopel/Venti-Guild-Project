@@ -1,120 +1,133 @@
-$steel-blue: #4785C2ff;
+$steel-blue: #4785c2ff;
 $gold-metallic: rgb(255, 213, 60);
 $flax: rgb(255, 237, 137);
 $ivory: rgb(211, 206, 159);
-$smoky-black: #120B08ff;
+$smoky-black: #120b08ff;
 
 $bordervalues: 1px rgb(12, 12, 12) solid;
 
+$basicdark: rgb(43, 43, 43);
+
 body {
-    background-color: white;
-    margin: 0;
+  background-color: white;
+  margin: 0;
 }
 
 header {
-    min-height: 50px;
-    background-color: $gold-metallic;
+  min-height: 50px;
+  background-color: $gold-metallic;
 }
 
 main {
-    min-height: 50vw;
-    background-color: $ivory;
+  min-height: 50vw;
+  background-color: $ivory;
 }
 
 footer {
-    min-height: 50px;
-    background-color: $flax;
+  background-color: $flax;
 }
 
 #leaderboardContainer {
-    background-color: rgb(43, 43, 43);
+  padding: 20px;
+  background-color: lighten($basicdark, 5%);
 
-    & #seasonList {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-        padding: 20px;
-        
-        & button {
-            border-radius: 5px;
-            border: 2px darken(steelblue, 40%) solid;
-            background-color: steelblue;
-            min-width: 100px;
-        }
-        
+  caption {
+    color: white;
+  }
+
+  tr {
+    & td,
+    th {
+      background-color: $basicdark;
+
+      color: white;
+      border-bottom: none;
+
+      &:first-child {
+        border-right: 2px lighten($basicdark, 10%) solid;
+      }
+
+      &:last-child {
+        border-left: 2px lighten($basicdark, 10%) solid;
+      }
     }
 
-    & #playerList {
-
-        & .playerRow {
-
-            border-bottom: $bordervalues;
-            border-left: $bordervalues;
-            border-right: $bordervalues;      
-
-            & :first-child {
-                border-right: $bordervalues;
-            }
-
-            &:first-child {
-                border-top: $bordervalues;
-            }
-
-            & #playerPoints, #playerName, #playerRank {
-                color: rgb(230, 230, 230);
-                font-weight: bold;
-                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-            }
-
-            & #playerRank {
-                width: 50px;
-                text-align: center;
-            }
-
-            & #playerPoints {
-                min-width: 80px;
-            }
-
-            & #playerName {
-                min-width: 230px;
-            }
-
-            & .playerPoints {
-                text-align: end;
-                color: rgb(230, 230, 230);
-
-                font-family: monospace;
-                min-width: 80px;
-            }
-
-            & .playerRank {
-                text-align: center;
-                color: rgb(230, 230, 230);
-
-                font-family: monospace;
-                width: 50px
-            }
-
-            & .playerName {
-                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-                font-weight: bold;
-                min-width: 230px;
-            }
+    &:nth-child(-n+40) {
+      & th, td {
+        &.playerRank:first-child {
+          color: rgb(255, 168, 62);
+          font-weight: bold;
         }
+      }
     }
+
+    &:nth-child(-n+25) {
+      & th, td {
+        &.playerRank:first-child {
+          color: rgb(209, 209, 209);
+        }
+      }
+    }
+
+    &:nth-child(-n+10) {
+      & th, td {
+        &.playerRank:first-child {
+          color: rgb(255, 239, 62);
+        }
+      }
+    }
+
+    &:nth-child(-n+3) {
+      & th, td {
+        &.playerRank:first-child {
+          color: rgb(239, 62, 255);
+        }
+      }
+    }
+
+    &:nth-child(even),
+    &:only-child {
+      & td,
+      th {
+        background-color: darken($basicdark, 5%);
+      }
+    }
+  }
 }
 
-
-
-.playerRow {
-    
+.playerRank {
+  text-align: center;
+  width: 5%;
 }
 
 .playerName {
-    
+  width: 80%;
 }
 
 .playerPoints {
+  width: 15%;
+  text-align: center;
+}
 
+#seasonList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: baseline;
+  align-items: baseline;
+  gap: 10px;
+  height: 35px;
+}
+
+.seasonBtn {
+  padding: 5px;
+  background-color: $steel-blue;
+  border: 2px darken($steel-blue, 30%) solid;
+  border-radius: 5px;
+
+  width: 32%;
+  min-width: 100px;
+  font-size: 20px;
+
+  color: white;
 }
