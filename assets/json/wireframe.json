@@ -1,0 +1,16 @@
+{
+  "html": [
+    { "type": "header" },
+    {
+      "type": "main",
+      "class": ["container"],
+      "children": [
+        { "type": "article", "id": "leaderboardContainer", "class": ["row", "justify-content-center", "align-items-center"], "children": [
+            {"type": "section", "class": ["col-12"], "id": "seasonList"},
+            {"type": "section", "id": "playerList", "class": ["col-12"]}
+        ] }
+      ]
+    },
+    { "type": "footer" }
+  ]
+}
