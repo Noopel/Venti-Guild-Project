@@ -8,6 +8,11 @@ interface ElementInfo {
   repeat?: number;
 }
 
+interface CustomElement {
+  element: Element;
+  children: Element[]
+}
+
 type SeasonalPlayerData = {
   name: string;
   points: number;

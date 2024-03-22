@@ -5,5 +5,4 @@ import Leaderboard from './classes/Leaderboard'
 /*Self-invoked function*/ 
 (()=>{
     new Leaderboard(guildData);
-
 })()
