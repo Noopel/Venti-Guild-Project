@@ -72,7 +72,7 @@ class Leaderboard {
       seasonBtn.addEventListener("click", () => this.changeSeason(season));
     });
 
-    for (const [key, value] of Object.entries(this.totalMemberList)) {
+    for (const [, value] of Object.entries(this.totalMemberList)) {
       this.allMemberList.push(value);
       this.allMemberList.sort((a, b) => b.points - a.points);
     }
