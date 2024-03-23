@@ -1,7 +1,6 @@
 import jQuery from "jquery"
 
-const headerContainer = document.querySelector("#headerContainer")
+jQuery(document).ready(function(){
+    jQuery("#headerContainer").load("/Venti-Guild-Project/html/header.html")
+})
 
-if(headerContainer) {
-    $(headerContainer).load("/html/header.html")
-}
