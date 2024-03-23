@@ -7,4 +7,4 @@ export default defineConfig({
     handlebars({
       partialDirectory: resolve(__dirname, 'partials'),
     }),
-  ]});
+  ],  base: "/Venti-Guild-Project/" });
