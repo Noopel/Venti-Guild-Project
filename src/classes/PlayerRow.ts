@@ -14,6 +14,7 @@ class PlayerRow {
   rankElem: HTMLElement;
   nameElem: HTMLElement;
   pointsElem: HTMLElement;
+  currentRole: number;
 
   constructor(list: HTMLElement | Element, rank: number) {
     this.row = new CustomElement(
@@ -42,6 +43,7 @@ class PlayerRow {
     this.nameElem = nameElem.element;
     this.pointsElem = pointsElem.element;
     this.rankElem = rankElem.element;
+    this.currentRole = 0
   }
 
   changePlayer(playerData: SeasonalPlayerData, newRank?: number) {
@@ -69,6 +71,7 @@ class PlayerRow {
     this.pointsElem.innerHTML = String(playerData.points);
 
     let memberColor = PlayerRow.RoleColors[playerData.role] || PlayerRow.RoleColors[0];
+    this.currentRole = playerData.role
     gsap.fromTo(
       this.nameElem,
       { color: memberColor.slice(memberColor.length - 3) + "0)", x: 5 },
@@ -98,8 +101,35 @@ class PlayerRow {
       this.rankElem.style.color = "white";
       this.rankElem.style.fontWeight = "normal";
     }
-    this.nameElem.innerHTML = "";
-    this.pointsElem.innerHTML = "";
+
+    if(this.nameElem.innerHTML !== "" && this.pointsElem.innerHTML !== ""){
+      let nameColor = this.nameElem.style.color.slice(4, this.nameElem.style.color.length-1)
+      let pointsColor = this.pointsElem.style.color.slice(4, this.pointsElem.style.color.length-1)
+
+      gsap.fromTo(
+        this.nameElem,
+        { x: 0, color: `rgba(${nameColor}, 1)` },
+        {
+          duration: 0.05,
+          x: 3,
+          color: `rgba(${nameColor}, 0)`,
+        }
+      )
+      gsap.fromTo(
+        this.pointsElem,
+        { x: 0, color: `rgba(${pointsColor}, 1)` },
+        {
+          duration: 0.1,
+          x: 3,
+          color: `rgba(${pointsColor}, 0)`,
+        }
+      )
+    } else {
+      this.nameElem.innerHTML = "";
+      this.pointsElem.innerHTML = "";
+    }
+
+
     this.nameElem.style.color = PlayerRow.RoleColors[0];
   }
 }
