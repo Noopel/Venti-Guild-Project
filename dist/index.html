@@ -1,51 +1,81 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Venti point showcase</title>
-    <script type="module" crossorigin src="/Venti-Guild-Project/assets/index-BjFEteYn.js"></script>
-    <link rel="stylesheet" crossorigin href="/Venti-Guild-Project/assets/index-DlhA3rDP.css">
+    <script type="module" crossorigin src="/Venti-Guild-Project/assets/index-x9KDRDoT.js"></script>
+    <link rel="stylesheet" crossorigin href="/Venti-Guild-Project/assets/index-fiwJc1EJ.css">
   </head>
   <body>
-    <header id="headerContainer">
-      <!-- <nav class="navbar navbar-expand-lg">
-          <div class="container-fluid">
-            <a class="navbar-brand mx-2 d-flex align-items-center" href="#">
-              <img src="assets/img/VentiGuildLogo.png" class="img-fluid venti-logo" alt="">
-              <h1 class="mx-2 mb-0 venti-title">VENTI</h1>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link text-white" aria-current="page" href="/index.html">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-white active" aria-current="page" href="/leaderboards.html">Leaderboards</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav> -->
-      
-        <nav class="navbar navbar-expand-lg">
-          <div class="container-fluid">
-            <a class="navbar-brand mx-2 d-flex align-items-center" href="index.html">
-              <img src="/Venti-Guild-Project/assets/VentiGuildLogo-DS4yEswr.png" class="img-fluid venti-logo" alt="">
-              <h1 class="mx-2 mb-0 venti-title">VENTI</h1>
-            </a>
-          </div>
-        </nav>    </header>
+    <header id="headerContainer"><!-- <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand mx-2 d-flex align-items-center" href="#">
+        <img src="assets/img/VentiGuildLogo.png" class="img-fluid venti-logo" alt="">
+        <h1 class="mx-2 mb-0 venti-title">VENTI</h1>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link text-white" aria-current="page" href="/index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white active" aria-current="page" href="/leaderboards.html">Leaderboards</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav> -->
+
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand mx-2 d-flex align-items-center" href="index.html">
+        <img src="/Venti-Guild-Project/assets/VentiGuildLogo-DS4yEswr.png" class="img-fluid venti-logo" alt="">
+        <h1 class="mx-2 mb-0 venti-title">VENTI</h1>
+      </a>
+    </div>
+  </nav></header>
     <main class="container">
       <article class="row justify-content-center" id="leaderboardContainer">
-        <section class="col-12 text-center pb-3 text-white">
-          <h2 id="seasonCaption">Currently showing for </h2>
+        <section class="col-12 text-white mb-5">
+          <h4 class="mb-4">A list showcasing data I've been collecting for a few seasons</h4>
+          <p>THINGS TO NOTE: <br /></p>
+          <ul>
+            <li>
+              Player names are their <span class="fw-bold">DISPLAY NAME</span> and not Roblox username, meaning some people can share names and
+              accordingly share data (Rare case but should still be mentioned). The reason for this is that i don't have easy access to everyone's usernames through the guild.
+            </li>
+            <li>
+              If a player were to change their
+              <span class="fw-bold">Display</span> name then their data might not correctly combine for 'All Seasons' as future data is added.
+            </li>
+            <li>
+              Since the data is noted down within 1-5 days after a season has ended, roles might not be up to date and
+              some players may be missing
+            </li>
+            <li>
+              Under 'All Seaons', points are combined from all matching <span class="fw-bold">Display</span> names and
+              only the role from the most recent season is taken into account
+            </li>
+          </ul>
+          <p class="mt-4 mb-4">
+            I'll be updating this page with new data i collect after every season starting from Season 9
+          </p>
+          <p>
+            I also plan on adding more information, as well as personal graphs for each player.
+          </p>
+          <p class="fst-italic opacity-75">
+            This is however very conceptual at the moment, until i figure out a solution to the duplicate player problem.
+          </p>
         </section>
-        <section class="col-12" id="seasonList">
-
+        <section class="col-12 text-center pb-3 text-white">
+          <h2 id="seasonCaption">Currently showing for</h2>
+        </section>
+        <section class="col-12">
+          <article class="row" id="seasonList"></article>
         </section>
         <section class="col-12 col-sm-6 px-1">
           <table class="table mb-0">
@@ -56,9 +86,7 @@
                 <th class="text-center">Points</th>
               </tr>
             </thead>
-            <tbody id="playerList1">
-  
-            </tbody>
+            <tbody id="playerList1"></tbody>
           </table>
         </section>
         <section class="col-12 col-sm-6 px-1">
@@ -70,9 +98,7 @@
                 <th class="text-center">Points</th>
               </tr>
             </thead>
-            <tbody id="playerList2">
-  
-            </tbody>
+            <tbody id="playerList2"></tbody>
           </table>
         </section>
         <section class="col-12" id="playerListPaginations"></section>

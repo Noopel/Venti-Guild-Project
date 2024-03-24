@@ -121,10 +121,10 @@ $paginationColor: rgb(59, 59, 59);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: baseline;
+  justify-content: center;
   align-items: baseline;
-  gap: 0.8%;
   margin-bottom: 20px;
+  gap: 0.8%
 }
 
 .seasonBtn {
@@ -132,10 +132,9 @@ $paginationColor: rgb(59, 59, 59);
   background-color: darken($steel-blue, 10%);
   border: 2px darken($steel-blue, 40%) solid;
   border-radius: 5px;
-
-  width: 19.3%;
-  min-width: 100px;
+  
   font-size: 20px;
+  min-width: 160px;
 
   box-shadow: 0px 0px 0px 0px black;
 

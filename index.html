@@ -1,22 +1,51 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css" />
     <title>Venti point showcase</title>
   </head>
   <body>
-    <header id="headerContainer">
-      {{> header}}
-    </header>
+    <header id="headerContainer">{{> header}}</header>
     <main class="container">
       <article class="row justify-content-center" id="leaderboardContainer">
-        <section class="col-12 text-center pb-3 text-white">
-          <h2 id="seasonCaption">Currently showing for </h2>
+        <section class="col-12 text-white mb-5">
+          <h4 class="mb-4">A list showcasing data I've been collecting for a few seasons</h4>
+          <p>THINGS TO NOTE: <br /></p>
+          <ul>
+            <li>
+              Player names are their <span class="fw-bold">DISPLAY NAME</span> and not Roblox username, meaning some people can share names and
+              accordingly share data (Rare case but should still be mentioned). The reason for this is that i don't have easy access to everyone's usernames through the guild.
+            </li>
+            <li>
+              If a player were to change their
+              <span class="fw-bold">Display</span> name then their data might not correctly combine for 'All Seasons' as future data is added.
+            </li>
+            <li>
+              Since the data is noted down within 1-5 days after a season has ended, roles might not be up to date and
+              some players may be missing
+            </li>
+            <li>
+              Under 'All Seaons', points are combined from all matching <span class="fw-bold">Display</span> names and
+              only the role from the most recent season is taken into account
+            </li>
+          </ul>
+          <p class="mt-4 mb-4">
+            I'll be updating this page with new data i collect after every season starting from Season 9
+          </p>
+          <p>
+            I also plan on adding more information, as well as personal graphs for each player.
+          </p>
+          <p class="fst-italic opacity-75">
+            This is however very conceptual at the moment, until i figure out a solution to the duplicate player problem.
+          </p>
         </section>
-        <section class="col-12" id="seasonList">
-
+        <section class="col-12 text-center pb-3 text-white">
+          <h2 id="seasonCaption">Currently showing for</h2>
+        </section>
+        <section class="col-12">
+          <article class="row" id="seasonList"></article>
         </section>
         <section class="col-12 col-sm-6 px-1">
           <table class="table mb-0">
@@ -27,9 +56,7 @@
                 <th class="text-center">Points</th>
               </tr>
             </thead>
-            <tbody id="playerList1">
-  
-            </tbody>
+            <tbody id="playerList1"></tbody>
           </table>
         </section>
         <section class="col-12 col-sm-6 px-1">
@@ -41,9 +68,7 @@
                 <th class="text-center">Points</th>
               </tr>
             </thead>
-            <tbody id="playerList2">
-  
-            </tbody>
+            <tbody id="playerList2"></tbody>
           </table>
         </section>
         <section class="col-12" id="playerListPaginations"></section>

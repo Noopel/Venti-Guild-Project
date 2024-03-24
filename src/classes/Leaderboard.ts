@@ -64,7 +64,7 @@ class Leaderboard {
         {
           type: "button",
           id: season,
-          class: ["seasonBtn"],
+          class: ["seasonBtn", "col-auto"],
           innerText: season === "All Seasons" ? season : "Season " + season.charAt(season.length - 1),
         },
         seasonListElem
@@ -100,9 +100,9 @@ class Leaderboard {
     let seasonCaption = document.querySelector("#seasonCaption");
     if (seasonCaption && this.currentSeason != "All Seasons") {
       seasonCaption.innerHTML =
-        "Currently showing for " + "Season " + this.currentSeason.charAt(this.currentSeason.length - 1);
+        "Season " + this.currentSeason.charAt(this.currentSeason.length - 1);
     } else if (seasonCaption) {
-      seasonCaption.innerHTML = `Currently showing for ${this.currentSeason}`;
+      seasonCaption.innerHTML = `${this.currentSeason}`;
     }
 
     /* UPDATE PAGINATIONS */
