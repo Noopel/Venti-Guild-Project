@@ -18,6 +18,26 @@ type SeasonalPlayerData = {
   name: string;
   points: number;
   role: number;
+  id?: number;
 };
 
-type SeasonalData = { [key: string]: SeasonalMemberData[] };
+type SeasonalData = { [key: string]: SeasonalPlayerData[] };
+
+type rbxUserData = {
+  hasVerifiedBadge: boolean;
+  id: number;
+  name: string;
+  displayName: string;
+};
+
+type rbxUsersPOSTParams = {
+  userIds: number[];
+  excludeBannedUsers: boolean;
+};
+
+enum Roles {
+  Member = 0,
+  Captain = 1,
+  Elite = 2,
+  Leader = 3
+}

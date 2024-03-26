@@ -1,5 +1,6 @@
 import CustomElement from "./CustomElement";
 import gsap from "gsap";
+import Player from "./Player";
 
 class PlayerRow {
   static RoleColors = [
@@ -27,7 +28,7 @@ class PlayerRow {
             class: ["playerRank"],
             innerText: rank == 0 ? "👑" : `#${rank + 1}`,
           },
-          { type: "td", class: ["playerName"], children: [{ type: "p", class: ["playerNameText"] }] },
+          { type: "td", class: ["playerName"], children: [{ type: "p", class: ["playerNameText", "d-flex", "flex-row", "align-items-center"] }] },
           { type: "td", class: ["playerPoints"], children: [{ type: "p", class: ["playerPointsText"] }] },
         ],
       },
@@ -46,7 +47,9 @@ class PlayerRow {
     this.currentRole = 0
   }
 
-  changePlayer(playerData: SeasonalPlayerData, newRank?: number) {
+  changePlayer(playerData: Player, newRank?: number) {
+
+
     if (newRank) {
       this.rankElem.innerText = newRank == 1 ? "👑" : `#${newRank}`;
       if (newRank <= 3) {
@@ -66,9 +69,9 @@ class PlayerRow {
         this.rankElem.style.fontWeight = "normal";
       }
     }
-    this.nameElem.innerHTML = playerData.name;
+    this.nameElem.innerHTML = playerData.id ? playerData.name + " <span class='checkMark' title='This player is verified'>✔️</span>" : playerData.name;
     gsap.fromTo(this.pointsElem, { color: "rgba(255,255,255,0)", x: 5 }, { color: "rgba(255,255,255,1)", x: 0, duration: 0.25});
-    this.pointsElem.innerHTML = String(playerData.points);
+    this.pointsElem.innerHTML = String(playerData.totalPoints);
 
     let memberColor = PlayerRow.RoleColors[playerData.role] || PlayerRow.RoleColors[0];
     this.currentRole = playerData.role
@@ -84,6 +87,7 @@ class PlayerRow {
   }
 
   clearRow(newRank: number) {
+
     this.rankElem.innerText = newRank == 1 ? "👑" : `#${newRank}`;
     if (newRank <= 3) {
       this.rankElem.style.color = "rgb(239, 62, 255)";

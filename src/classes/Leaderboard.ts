@@ -1,14 +1,15 @@
 import createElement from "../functions/createElement";
 import CustomElement from "./CustomElement";
+import Player from "./Player";
 import PlayerRow from "./PlayerRow";
 
 class Leaderboard {
-  currentSeason: string = "season9";
+  currentSeason: string = "All Seasons";
   playerElements: PlayerRow[] = [];
   paginationElements: HTMLElement[] = [];
-  seasonData: SeasonalData;
-  totalMemberList: { [key: string]: SeasonalPlayerData } = {};
-  allMemberList: SeasonalPlayerData[] = [];
+  seasonDataList: {[key: string]: Player[]} = {};
+  unsortedMemberList: { [key: string]: Player } = {};
+  sortedMemberList: Player[] = [];
 
   currentPage = 1;
 
@@ -20,7 +21,6 @@ class Leaderboard {
   ];
 
   constructor(guildData: SeasonalData) {
-    this.seasonData = guildData;
     let seasonListElem = document.querySelector("#seasonList");
     let playerList1Elem = document.querySelector("#playerList1") as HTMLElement;
     let playerList2Elem = document.querySelector("#playerList2") as HTMLElement;
@@ -37,6 +37,7 @@ class Leaderboard {
     let entries = Object.entries(guildData);
     let entriesLenght = entries.length;
     let currentIndex = 0;
+    let lastSeason = entries[entriesLenght-1][0]
 
     let seasonButtonList = ["All Seasons"];
 
@@ -44,16 +45,29 @@ class Leaderboard {
       if (!this.currentSeason) {
         this.currentSeason = season;
       }
+      if(!this.seasonDataList[season]) {
+        this.seasonDataList[season] = []
+      }
       seasonButtonList.unshift(season);
 
       data.forEach((memberData) => {
-        if (!this.totalMemberList.hasOwnProperty(memberData.name)) {
-          this.totalMemberList[memberData.name] = { ...memberData };
+        let key = memberData.id ? "id => " + memberData.id : memberData.name;
+
+        if (!this.unsortedMemberList[key]) {
+          let newPlayer = new Player(memberData.id);
+          newPlayer.addSeasonData(season, memberData)
+          this.unsortedMemberList[key] = newPlayer;
+          this.seasonDataList[season].push(newPlayer)
         } else {
-          this.totalMemberList[memberData.name].points += memberData.points;
+          let PlayerObject: Player = this.unsortedMemberList[key]
+
+          PlayerObject.addSeasonData(season, memberData)
           if (entriesLenght - 1 == currentIndex) {
-            this.totalMemberList[memberData.name].role = memberData.role;
+            PlayerObject.role = memberData.role;
           }
+        }
+        if(!this.unsortedMemberList[key].hasSeasonData(lastSeason)) {
+          this.unsortedMemberList[key].role = 0
         }
       });
       currentIndex++;
@@ -72,12 +86,12 @@ class Leaderboard {
       seasonBtn.addEventListener("click", () => this.changeSeason(season));
     });
 
-    for (const [, value] of Object.entries(this.totalMemberList)) {
-      this.allMemberList.push(value);
-      this.allMemberList.sort((a, b) => b.points - a.points);
+    for (const [, value] of Object.entries(this.unsortedMemberList)) {
+      this.sortedMemberList.push(value);
+      this.sortedMemberList.sort((a, b) => b.totalPoints - a.totalPoints);
     }
 
-    let totalPaginations = Math.ceil(this.allMemberList.length/50)
+    let totalPaginations = Math.ceil(this.sortedMemberList.length/50)
 
     for (let index = 0; index < totalPaginations; index++) {
       let paginationElement = new CustomElement({type: "div", innerText: String(1 + ((index)*50)) + " - " + String(((index+1)*50))}, playerListPaginationsElement);
@@ -121,9 +135,11 @@ class Leaderboard {
       }
     })
 
+
+    /* FIX LATER WITH NEW PLAYER CLASS */
     this.playerElements.forEach((element, index) => {
       let newRank = index+((this.currentPage-1)*50)+1
-      let playerData = this.currentSeason === "All Seasons" ? this.allMemberList[index+((this.currentPage - 1)*50)] : this.seasonData[this.currentSeason][index];
+      let playerData = this.currentSeason === "All Seasons" ? this.sortedMemberList[index+((this.currentPage - 1)*50)] : this.seasonDataList[this.currentSeason][index];
 
       if (playerData) {
         element.changePlayer(playerData, newRank);

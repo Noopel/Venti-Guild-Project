@@ -3,8 +3,16 @@ import { resolve } from "path";
 import handlebars from "vite-plugin-handlebars";
 
 export default defineConfig({
-    plugins: [
+  server: {
+    proxy: {
+      "/v1/users/": "https://users.roblox.com"
+    },
+    cors: true,
+  },
+  plugins: [
     handlebars({
-      partialDirectory: resolve(__dirname, 'partials'),
+      partialDirectory: resolve(__dirname, "partials"),
     }),
-  ],  base: "/Venti-Guild-Project/" });
+  ],
+  base: "/Venti-Guild-Project/",
+});
