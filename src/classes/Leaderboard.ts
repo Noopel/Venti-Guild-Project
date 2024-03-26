@@ -7,7 +7,7 @@ class Leaderboard {
   currentSeason: string = "All Seasons";
   playerElements: PlayerRow[] = [];
   paginationElements: HTMLElement[] = [];
-  seasonDataList: {[key: string]: Player[]} = {};
+  seasonDataList: {[key: string]: SeasonalPlayerData[]} = {};
   unsortedMemberList: { [key: string]: Player } = {};
   sortedMemberList: Player[] = [];
 
@@ -57,7 +57,6 @@ class Leaderboard {
           let newPlayer = new Player(memberData.id);
           newPlayer.addSeasonData(season, memberData)
           this.unsortedMemberList[key] = newPlayer;
-          this.seasonDataList[season].push(newPlayer)
         } else {
           let PlayerObject: Player = this.unsortedMemberList[key]
 
@@ -66,6 +65,8 @@ class Leaderboard {
             PlayerObject.role = memberData.role;
           }
         }
+
+        this.seasonDataList[season].push(this.unsortedMemberList[key].getSeasonData(season))
         if(!this.unsortedMemberList[key].hasSeasonData(lastSeason)) {
           this.unsortedMemberList[key].role = 0
         }
@@ -88,7 +89,7 @@ class Leaderboard {
 
     for (const [, value] of Object.entries(this.unsortedMemberList)) {
       this.sortedMemberList.push(value);
-      this.sortedMemberList.sort((a, b) => b.totalPoints - a.totalPoints);
+      this.sortedMemberList.sort((a, b) => b.points - a.points);
     }
 
     let totalPaginations = Math.ceil(this.sortedMemberList.length/50)

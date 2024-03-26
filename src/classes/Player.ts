@@ -1,6 +1,6 @@
 class Player {
   name: string = "???";
-  totalPoints: number = 0;
+  points: number = 0;
   role: number = 0;
   id?: number;
   validated: boolean = false;
@@ -18,15 +18,15 @@ class Player {
   }
 
   addSeasonData(season: string, data: SeasonalPlayerData) {
-    this.seasonData[season] = data;
-    this.totalPoints += data.points;
+    this.seasonData[season] = { ...data};
+    this.points += data.points;
     if (!this.validated) {
       this.name = data.name;
     }
   }
 
-  getSeasonData(season: string) {
-    return this.seasonData[season];
+  getSeasonData(season: string): SeasonalPlayerData {
+    return {name: this.name, id: this.id, role: this.seasonData[season].role, points: this.seasonData[season].points};
   }
 
   hasSeasonData(season: string) {

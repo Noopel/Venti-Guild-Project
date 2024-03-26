@@ -1,6 +1,5 @@
 import CustomElement from "./CustomElement";
 import gsap from "gsap";
-import Player from "./Player";
 
 class PlayerRow {
   static RoleColors = [
@@ -47,7 +46,7 @@ class PlayerRow {
     this.currentRole = 0
   }
 
-  changePlayer(playerData: Player, newRank?: number) {
+  changePlayer(playerData: SeasonalPlayerData, newRank?: number) {
 
 
     if (newRank) {
@@ -71,7 +70,7 @@ class PlayerRow {
     }
     this.nameElem.innerHTML = playerData.id ? playerData.name + " <span class='checkMark' title='This player is verified'>✔️</span>" : playerData.name;
     gsap.fromTo(this.pointsElem, { color: "rgba(255,255,255,0)", x: 5 }, { color: "rgba(255,255,255,1)", x: 0, duration: 0.25});
-    this.pointsElem.innerHTML = String(playerData.totalPoints);
+    this.pointsElem.innerHTML = String(playerData.points);
 
     let memberColor = PlayerRow.RoleColors[playerData.role] || PlayerRow.RoleColors[0];
     this.currentRole = playerData.role
