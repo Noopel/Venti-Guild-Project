@@ -16,6 +16,7 @@ class Leaderboard {
   playerInfoContainer: HTMLElement;
 
   currentPage = 1;
+  mostRecentSeason: string = "";
 
   static RoleColors = [
     "rgba(230, 230, 230, 1)",
@@ -66,11 +67,23 @@ class Leaderboard {
       }
     });
 
-    for (const [season] of Object.entries(this.seasonDataList)) {
+    let seasonEntries = Object.entries(this.seasonDataList)
+    let count = 0
+
+    for (const [season] of seasonEntries) {
       this.seasonDataList[season].sort((a, b) => {
         return b.points - a.points;
       });
-    }
+
+      if(count === seasonEntries.length-1) {
+        this.mostRecentSeason = season
+      }
+      count++
+    } 
+    
+    this.memberList.forEach((playerObj)=>{
+      if(!playerObj.seasonList[this.mostRecentSeason]) {playerObj.latestRole = 0}
+    })
 
     for (let index = 0; index < seasonButtonList.length - 1; index++) {
       let parent = playerInfoSeasonList;
@@ -129,12 +142,20 @@ class Leaderboard {
       if (playerData) {
         let entries = Object.entries(playerData.seasonList);
 
-        if(plrNameElem) {
-          plrNameElem.innerHTML = playerData.id ? playerData.name + ` <span class='fst-italic text-white opacity-50' title="username = ${playerData.username}, userId = ${playerData.id}">?</span>` : playerData.name;;
-          plrNameElem.style.color = Leaderboard.RoleColors[playerData.latestRole] || Leaderboard.RoleColors[0]
+        let latestRole
+
+        if(!playerData.seasonList[this.mostRecentSeason]){
+          latestRole = 0
+        } else {
+          latestRole = playerData.latestRole
         }
 
-        let latestRoleColor = Leaderboard.RoleConvert[playerData.latestRole]
+        if(plrNameElem) {
+          plrNameElem.innerHTML = playerData.id ? playerData.name + ` <span class='fst-italic text-white opacity-50' title="username = ${playerData.username}, userId = ${playerData.id}">?</span>` : playerData.name;;
+          plrNameElem.style.color = Leaderboard.RoleColors[latestRole] || Leaderboard.RoleColors[0]
+        }
+
+        let latestRoleColor = Leaderboard.RoleConvert[latestRole]
 
         plrPointsElem ? plrPointsElem.innerHTML = "Total points earned: " + String(playerData.totalPoints) : undefined;
         plrRoleElem ? plrRoleElem.innerHTML = "Latest Role: " + latestRoleColor : undefined;
