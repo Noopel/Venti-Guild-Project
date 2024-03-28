@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Venti point showcase</title>
-    <script type="module" crossorigin src="/Venti-Guild-Project/assets/index-BslEbbkt.js"></script>
-    <link rel="stylesheet" crossorigin href="/Venti-Guild-Project/assets/index-Cav_j-kF.css">
+    <script type="module" crossorigin src="/Venti-Guild-Project/assets/index-BjffwW5x.js"></script>
+    <link rel="stylesheet" crossorigin href="/Venti-Guild-Project/assets/index-DBJuK_TR.css">
   </head>
   <body>
     <header id="headerContainer"><!-- <nav class="navbar navbar-expand-lg">
@@ -39,8 +39,8 @@
     </div>
   </nav></header>
     <main class="container">
-      <article class="row justify-content-center" id="leaderboardContainer">
-        <section class="col-12 text-white mb-5">
+      <article class="row">
+        <section class="col-12 text-white my-5 px-5">
           <h4 class="mb-4">A list showcasing data I've been collecting for a few seasons</h4>
           <p>THINGS TO NOTE: <br /></p>
           <ul>
@@ -71,6 +71,8 @@
             This is however very conceptual at the moment, until i figure out a solution to the duplicate player problem.
           </p>
         </section>
+      </article>
+      <article class="row justify-content-center" id="leaderboardContainer">
         <section class="col-12 text-center pb-3 text-white">
           <h2 id="seasonCaption">Currently showing for</h2>
         </section>
@@ -102,6 +104,28 @@
           </table>
         </section>
         <section class="col-12" id="playerListPaginations"></section>
+      </article>
+      <article class="row justify-content-center text-white" id="playerInfoContainer">
+        <section class="col-12 text-end">
+          <button id="returnBtn">Return</button>
+        </section>
+        <section class="col-12 text-center">
+          <h2 id="plrInfoName">tail</h2>
+          <h5 id="plrInfoPoints">Total points earned: 9953</h5>
+          <h5 id="plrInfoRole">Latest Role: Leader</h5>
+        </section>
+        <section class="col-12 col-sm-6 px-1 my-5">
+          <table class="table">
+            <thead>
+              <tr class="d-sm-table-row d-none">
+                <th>Season</th>
+                <th class="text-center">Points</th>
+                <th class="text-center">Role</th>
+              </tr>
+            </thead>
+            <tbody id="playerInfoSeasonList"></tbody>
+          </table>
+        </section>
       </article>
     </main>
     <footer></footer>

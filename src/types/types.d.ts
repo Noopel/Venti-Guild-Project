@@ -1,3 +1,4 @@
+/* #region CustomElement types */
 interface ElementInfo {
   type: string;
   innerText?: string;
@@ -9,9 +10,17 @@ interface ElementInfo {
 }
 
 interface ElementQuery {
-  classQuery?: string | string[];
-  id?: string;
-  type?: string;
+  classQuery: string | string[],
+  id: string,
+  type: string
+}
+/* #endregion */
+
+enum Roles {
+  Member = 0,
+  Captain = 1,
+  Elite = 2,
+  Leader = 3,
 }
 
 type SeasonalPlayerData = {
@@ -21,8 +30,7 @@ type SeasonalPlayerData = {
   id?: number;
 };
 
-type SeasonalData = { [key: string]: SeasonalPlayerData[] };
-
+/* #region Imported data set types */
 type rbxUserData = {
   hasVerifiedBadge: boolean;
   id: number;
@@ -30,14 +38,21 @@ type rbxUserData = {
   displayName: string;
 };
 
-type rbxUsersPOSTParams = {
-  userIds: number[];
-  excludeBannedUsers: boolean;
+type SeasonMemberData = {
+  points: number;
+  role: number;
 };
 
-enum Roles {
-  Member = 0,
-  Captain = 1,
-  Elite = 2,
-  Leader = 3
-}
+type VentiMemberData = {
+  name: string;
+  totalPoints: number;
+  latestRole: number;
+  seasonList: { [key: string]: SeasonalMemberData };
+  id?: number;
+  rbxUserData: rbxUserData;
+};
+
+type VentiMemberList = VentiMemberData[];
+
+type SeasonalData = { [key: string]: SeasonalPlayerData[] };
+/* #endregion */

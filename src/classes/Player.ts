@@ -1,36 +1,56 @@
 class Player {
   name: string = "???";
-  points: number = 0;
-  role: number = 0;
+  submittedName: string = "???";
+  displayName: string = "";
+  username: string = "";
+  totalPoints: number = 0;
+  latestRole: number = 0;
   id?: number;
   validated: boolean = false;
 
-  seasonData: { [key: string]: SeasonalPlayerData } = {};
+  seasonList: { [key: string]: SeasonMemberData } = {};
 
-  constructor(id?: number) {
-    this.id = id;
+  constructor(memberData: VentiMemberData) {
+    this.name = memberData.name;
+    this.submittedName = memberData.name;
+    this.totalPoints = memberData.totalPoints;
+    this.latestRole = memberData.latestRole;
 
+    this.id = memberData.id
+
+    if(memberData.rbxUserData) {
+      this.name = memberData.rbxUserData.displayName;
+      this.displayName = memberData.rbxUserData.displayName;
+      this.validated = true;
+      this.username = memberData.rbxUserData.name
     }
 
-  addRobloxUserData(data: rbxUserData) {
-    this.name = data.displayName;
-    this.validated = true;
+    this.seasonList = memberData.seasonList
   }
 
-  addSeasonData(season: string, data: SeasonalPlayerData) {
-    this.seasonData[season] = { ...data};
-    this.points += data.points;
-    if (!this.validated) {
-      this.name = data.name;
+  hasSeasonData(season: string): boolean {
+    return this.seasonList.hasOwnProperty(season)
+  }
+
+  getSeasonData(season: string): SeasonalPlayerData | undefined {
+    if(this.seasonList[season]) {
+      return {name: this.name, points: this.seasonList[season].points, role: this.seasonList[season].role, id: this.id || undefined}
     }
   }
 
-  getSeasonData(season: string): SeasonalPlayerData {
-    return {name: this.name, id: this.id, role: this.seasonData[season].role, points: this.seasonData[season].points};
+  getLatestSeasonData() {
+    let highestSeason: number = 0
+
+    for(const[season,] of Object.entries(this.seasonList)) {
+      let seasonNumber = Number(season.slice(season.length-1))
+      if(seasonNumber && seasonNumber > highestSeason){highestSeason = seasonNumber}
+    }
+
+    return this.getSeasonData("season"+String(highestSeason))
   }
 
-  hasSeasonData(season: string) {
-    return this.seasonData.hasOwnProperty(season);
+  getForAllSeasons() {
+    return {name: this.name, points: this.totalPoints, role: this.latestRole, id: this.id || undefined}
   }
 }
 

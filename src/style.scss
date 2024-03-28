@@ -25,7 +25,7 @@ footer {
   background-color: $flax;
 }
 
-#leaderboardContainer {
+#leaderboardContainer, #playerInfoContainer {
   padding: 20px;
   background-color: lighten($basicdark, 5%);
 
@@ -73,11 +73,20 @@ footer {
 
 .playerName {
   width: 75%;
+
+  :hover {
+    text-decoration: underline;
+  }
 }
 
 .playerPoints {
   width: 15%;
   text-align: center;
+}
+
+.playerButton {
+  background-color: rgba(1,1,1,0);
+  border: none;
 }
 
 $paginationColor: rgb(59, 59, 59);
@@ -163,4 +172,46 @@ $paginationColor: rgb(59, 59, 59);
 .checkMark {
   font-size: 10px;
   margin-left: 5px;
+}
+
+#playerInfoContainer {
+  display: none;
+  padding: 20px;
+  background-color: lighten($basicdark, 5%);
+}
+
+.returnBtnContainer {
+  height: 50px;
+}
+
+#returnBtn {
+  background-color: $basicdark;
+  border: 2px darken($basicdark, 15%) solid;
+
+  min-width: 240px;
+
+  color: white;
+
+  font-size: 30px;
+
+  &:hover {
+    background-color: darken($basicdark, 10%);
+    border: 2px darken($basicdark, 20%) solid;
+  }
+
+  &:active {
+    background-color: darken($basicdark, 20%);
+  }
+}
+
+.seasonName {
+  width: 50%;
+}
+
+.seasonPoints {
+  width: 25%;
+}
+
+.seasonRole {
+  width: 25%;
 }

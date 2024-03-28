@@ -16,7 +16,9 @@
     "vite": "^5.2.0"
   },
   "dependencies": {
+    "@types/node": "^20.11.30",
     "bootstrap": "^5.3.3",
+    "canvasjs": "^1.8.3",
     "gsap": "^3.12.5",
     "jquery": "^3.7.1",
     "vite-plugin-handlebars": "^2.0.0"
