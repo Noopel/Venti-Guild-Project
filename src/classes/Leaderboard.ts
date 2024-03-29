@@ -162,7 +162,7 @@ class Leaderboard {
 
         this.playerInfoElements.forEach((plrRowElem, index) => {
           if (entries[index]) {
-            plrRowElem.changeSeason(entries[index][0], entries[index][1].points, latestRoleColor);
+            plrRowElem.changeSeason(entries[index][0], entries[index][1].points, Leaderboard.RoleConvert[entries[index][1].role]);
           } else {
             plrRowElem.clearRow();
           }
