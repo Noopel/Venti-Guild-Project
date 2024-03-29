@@ -90,6 +90,10 @@ footer {
   padding: 0;
   margin: 1px;
   margin-left: 4px;
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 $paginationColor: rgb(59, 59, 59);
@@ -175,8 +179,9 @@ $paginationColor: rgb(59, 59, 59);
 .checkMark {
   font-size: 10px;
   margin-left: 5px;
+  text-decoration: none;
   &:hover {
-    cursor: default;
+    text-decoration: none;
   }
 }
 
