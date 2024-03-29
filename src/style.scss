@@ -87,6 +87,9 @@ footer {
 .playerButton {
   background-color: rgba(1,1,1,0);
   border: none;
+  padding: 0;
+  margin: 1px;
+  margin-left: 4px;
 }
 
 $paginationColor: rgb(59, 59, 59);
@@ -172,6 +175,9 @@ $paginationColor: rgb(59, 59, 59);
 .checkMark {
   font-size: 10px;
   margin-left: 5px;
+  &:hover {
+    cursor: default;
+  }
 }
 
 #playerInfoContainer {
