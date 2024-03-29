@@ -23,13 +23,15 @@ class Leaderboard {
     "rgba(0, 100, 255, 1)",
     "rgba(255, 0, 255, 1)",
     "rgba(255, 255, 0, 1)",
+    "rgba(200, 200, 200, 1)",
   ];
 
   static RoleConvert = [
     "Member",
     "Captain",
     "Elite",
-    "Leader"
+    "Leader",
+    "Previous Member"
   ]
 
   constructor(ventiMemberList: VentiMemberList) {
@@ -145,7 +147,7 @@ class Leaderboard {
         let latestRole
 
         if(!playerData.seasonList[this.mostRecentSeason]){
-          latestRole = 0
+          latestRole = 4
         } else {
           latestRole = playerData.latestRole
         }
