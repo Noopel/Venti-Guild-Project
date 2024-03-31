@@ -76,7 +76,7 @@ class PlayerRow {
     this.key = playerData.id ? "id => " + String(playerData.id) : playerData.name;
     this.playerBtn.dataset.key = this.key;
     this.playerBtn.disabled = false;
-    console.log(playerData)
+    
     if (newRank) {
       this.rankElem.innerText = newRank == 1 ? "👑" : `#${newRank}`;
       if (newRank <= 3) {
