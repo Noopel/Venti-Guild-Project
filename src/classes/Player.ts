@@ -46,7 +46,12 @@ class Player {
       if(seasonNumber && seasonNumber > highestSeason){highestSeason = seasonNumber}
     }
 
-    return this.getSeasonData("season"+String(highestSeason))
+    let latestSeasonData = this.getSeasonData("season"+String(highestSeason))
+    if(latestSeasonData) {
+      latestSeasonData.role = this.latestRole
+    }
+
+    return latestSeasonData
   }
 
   getForAllSeasons() {

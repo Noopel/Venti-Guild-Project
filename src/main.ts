@@ -14,7 +14,7 @@ import PlayerMenu from "./classes/PlayerMenu";
       let playerNameBtns = document.querySelectorAll(".playerButton") as NodeListOf<HTMLButtonElement>;
       let lastUpdatedTag = document.querySelector("#lastDataUpdate") as HTMLElement;
 
-      lastUpdatedTag.innerText = "Last updated: " + ventiMemberList.lastUpdated
+      lastUpdatedTag.innerText = "Last updated: " + new Date(ventiMemberList.lastUpdated).toUTCString()
 
       playerNameBtns.forEach((button) => {
         button.addEventListener("click", () => {
