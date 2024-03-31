@@ -3,11 +3,11 @@ import gsap from "gsap";
 
 class PlayerRow {
   static RoleColors = [
-    "rgba(230, 230, 230, 1)",
+    "rgba(255, 255, 255, 1)",
     "rgba(0, 100, 255, 1)",
     "rgba(255, 0, 255, 1)",
     "rgba(255, 255, 0, 1)",
-    "rgba(200, 200, 200, 1)",
+    "rgba(180, 180, 180, 1)",
   ];
 
   key: string | undefined;

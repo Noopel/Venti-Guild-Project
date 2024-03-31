@@ -13,11 +13,11 @@ class PlayerMenu {
 
   static RoleConvert = ["Member", "Captain", "Elite", "Leader", "Previous Member"];
   static RoleColors = [
-    "rgba(230, 230, 230, 1)",
+    "rgba(255, 255, 255, 1)",
     "rgba(0, 100, 255, 1)",
     "rgba(255, 0, 255, 1)",
     "rgba(255, 255, 0, 1)",
-    "rgba(200, 200, 200, 1)",
+    "rgba(180, 180, 180, 1)",
   ];
 
   constructor(guildData: compiledVentiGuildData) {
@@ -51,8 +51,8 @@ class PlayerMenu {
       if (playerData) {
         let entries = Object.entries(playerData.seasonList);
 
-        let latestRole = playerData.latestRole || 4;
-
+        let latestRole = playerData.latestRole !== undefined ? playerData.latestRole : 4;
+        
         if (this.plrNameElem) {
           this.plrNameElem.innerHTML = playerData.id
             ? playerData.name +
