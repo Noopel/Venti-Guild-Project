@@ -38,22 +38,6 @@ class Player {
     }
   }
 
-  getLatestSeasonData() {
-    let highestSeason: number = 0
-
-    for(const[season,] of Object.entries(this.seasonList)) {
-      let seasonNumber = Number(season.slice(season.length-1))
-      if(seasonNumber && seasonNumber > highestSeason){highestSeason = seasonNumber}
-    }
-
-    let latestSeasonData = {... this.getSeasonData("season"+String(highestSeason))}
-    if(latestSeasonData) {
-      latestSeasonData.role = this.latestRole
-    }
-
-    return latestSeasonData
-  }
-
   getForAllSeasons() {
     return {name: this.name, points: this.totalPoints, role: this.latestRole, id: this.id || undefined}
   }
