@@ -7,6 +7,7 @@ class PlayerRow {
     "rgba(0, 100, 255, 1)",
     "rgba(255, 0, 255, 1)",
     "rgba(255, 255, 0, 1)",
+    "rgba(200, 200, 200, 1)",
   ];
 
   key: string | undefined;
@@ -67,12 +68,13 @@ class PlayerRow {
     this.rankElem = rankElem.element;
     this.playerBtn = playerBtn.element as HTMLButtonElement;
     this.checkMarkElem = checkMarkElem.element;
-    this.checkMarkElem.style.display = "none"
+    this.checkMarkElem.style.display = "none";
     this.currentRole = 0;
   }
 
   changePlayer(playerData: SeasonalPlayerData, newRank?: number) {
     this.key = playerData.id ? "id => " + String(playerData.id) : playerData.name;
+    this.playerBtn.dataset.key = this.key;
     this.playerBtn.disabled = false;
 
     if (newRank) {
@@ -97,7 +99,7 @@ class PlayerRow {
     this.nameElem.innerHTML = playerData.name;
     if (playerData.id) {
       this.checkMarkElem.innerText = "✔️";
-      this.checkMarkElem.title = "Verified userid: " + String(playerData.id)
+      this.checkMarkElem.title = "Verified userid: " + String(playerData.id);
     } else {
       this.checkMarkElem.innerText = "";
       this.checkMarkElem.title = "";
@@ -131,6 +133,7 @@ class PlayerRow {
 
   clearRow(newRank: number) {
     this.key = undefined;
+    this.playerBtn.dataset.key = "";
 
     this.playerBtn.disabled = true;
     this.checkMarkElem.innerText = "";

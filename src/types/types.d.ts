@@ -10,9 +10,9 @@ interface ElementInfo {
 }
 
 interface ElementQuery {
-  classQuery: string | string[],
-  id: string,
-  type: string
+  classQuery: string | string[];
+  id: string;
+  type: string;
 }
 /* #endregion */
 
@@ -31,6 +31,15 @@ type SeasonalPlayerData = {
 };
 
 /* #region Imported data set types */
+enum RoleColors {
+  "rgba(230, 230, 230, 1)",
+  "rgba(0, 100, 255, 1)",
+  "rgba(255, 0, 255, 1)",
+  "rgba(255, 255, 0, 1)",
+  "rgba(200, 200, 200, 1)",
+}
+
+
 type rbxUserData = {
   hasVerifiedBadge: boolean;
   id: number;
@@ -55,4 +64,11 @@ type VentiMemberData = {
 type VentiMemberList = VentiMemberData[];
 
 type SeasonalData = { [key: string]: SeasonalPlayerData[] };
+
+type compiledVentiGuildData = {
+  lastUpdated: string;
+  latestSeason: string;
+  memberList: VentiMemberData[];
+  seasonList: { [key: string]: SeasonalPlayerData[] };
+};
 /* #endregion */
