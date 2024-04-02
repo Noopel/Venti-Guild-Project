@@ -45,7 +45,6 @@ class PlayerMenu {
 
     if (key) {
       let playerData = this.memberList.find((player) => {
-        console.log(this.memberList)
         return player.id ? key === "id => " + String(player.id) : player.name === key;
       });
 
@@ -56,7 +55,7 @@ class PlayerMenu {
         
         if (this.plrNameElem) {
           this.plrNameElem.innerHTML = playerData.id
-            ? playerData.name +
+            ? playerData.rbxUserData.displayName +
               ` <span class='fst-italic text-white opacity-50' title="username = ${playerData.rbxUserData.name}, userId = ${playerData.id}">?</span>`
             : playerData.name;
           this.plrNameElem.style.color = PlayerMenu.RoleColors[latestRole] || PlayerMenu.RoleColors[0];

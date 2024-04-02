@@ -19,6 +19,7 @@ header {
 
 main {
   background-color: $basicdark;
+  min-height: 1200px;
 }
 
 footer {
@@ -28,6 +29,8 @@ footer {
 #leaderboardContainer, #playerInfoContainer {
   padding: 20px;
   background-color: lighten($basicdark, 5%);
+
+  min-height: 600px;
 
   caption {
     color: white;

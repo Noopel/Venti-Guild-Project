@@ -34,7 +34,7 @@ class Leaderboard {
     })
 
     this.seasonDataList = ventiMemberList.seasonList
-
+    console.log(this.seasonDataList)
     let seasonButtonList = ["All Seasons"];
 
     let seasonEntries = Object.entries(ventiMemberList.seasonList)
