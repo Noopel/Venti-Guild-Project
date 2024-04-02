@@ -14,20 +14,18 @@ body {
 }
 
 header {
-  min-height: 50px;
-  background-color: rgb(45, 92, 45);
+  background-color: rgb(27, 27, 27);
 }
 
 main {
-  min-height: 50vw;
-  background-color: $ivory;
+  background-color: $basicdark;
 }
 
 footer {
   background-color: $flax;
 }
 
-#leaderboardContainer {
+#leaderboardContainer, #playerInfoContainer {
   padding: 20px;
   background-color: lighten($basicdark, 5%);
 
@@ -42,6 +40,8 @@ footer {
   tr {
     & td,
     th {
+      padding-top: 0.3rem;
+      padding-bottom: 0.3rem;
       background-color: $basicdark;
 
       color: white;
@@ -53,39 +53,6 @@ footer {
 
       &:last-child {
         border-left: 2px lighten($basicdark, 10%) solid;
-      }
-    }
-
-    &:nth-child(-n+40) {
-      & th, td {
-        &.playerRank:first-child {
-          color: rgb(255, 168, 62);
-          font-weight: bold;
-        }
-      }
-    }
-
-    &:nth-child(-n+25) {
-      & th, td {
-        &.playerRank:first-child {
-          color: rgb(209, 209, 209);
-        }
-      }
-    }
-
-    &:nth-child(-n+10) {
-      & th, td {
-        &.playerRank:first-child {
-          color: rgb(255, 239, 62);
-        }
-      }
-    }
-
-    &:nth-child(-n+3) {
-      & th, td {
-        &.playerRank:first-child {
-          color: rgb(239, 62, 255);
-        }
       }
     }
 
@@ -106,6 +73,10 @@ footer {
 
 .playerName {
   width: 75%;
+
+  :hover {
+    text-decoration: underline;
+  }
 }
 
 .playerPoints {
@@ -113,14 +84,63 @@ footer {
   text-align: center;
 }
 
+.playerButton {
+  background-color: rgba(1,1,1,0);
+  border: none;
+  padding: 0;
+  margin: 1px;
+  margin-left: 4px;
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+$paginationColor: rgb(59, 59, 59);
+
+#playerListPaginations {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+
+  & .paginationActive {
+    outline: 2px rgb(15, 15, 15) solid;
+    font-weight: bold;
+  }
+
+  div {
+    width: 100px;
+    height: 30px;
+    background-color: $paginationColor;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px rgb(29, 29, 29) solid;
+    color: white;
+
+    cursor: pointer;
+
+    &:hover {
+      background-color: darken($paginationColor, 10%);
+    }
+
+    &:active {
+      background-color: darken($paginationColor, 15%);
+    }
+
+    padding: 2px;
+  }
+}
+
 #seasonList {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: baseline;
+  justify-content: center;
   align-items: baseline;
-  gap: 10px;
-  height: 35px;
+  margin-bottom: 20px;
+  gap: 0.8%
 }
 
 .seasonBtn {
@@ -128,10 +148,9 @@ footer {
   background-color: darken($steel-blue, 10%);
   border: 2px darken($steel-blue, 40%) solid;
   border-radius: 5px;
-
-  width: 32%;
-  min-width: 100px;
+  
   font-size: 20px;
+  min-width: 160px;
 
   box-shadow: 0px 0px 0px 0px black;
 
@@ -144,4 +163,66 @@ footer {
   &:active {
     background-color: darken($steel-blue, 30%);
   }
+}
+
+.venti-logo {
+  width: 60px;
+}
+
+.venti-title {
+  font-family:  'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bolder;
+  color: rgb(190, 240, 241);
+  -webkit-text-stroke: 1px black;
+}
+
+.checkMark {
+  font-size: 10px;
+  margin-left: 5px;
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+#playerInfoContainer {
+  display: none;
+  padding: 20px;
+  background-color: lighten($basicdark, 5%);
+}
+
+.returnBtnContainer {
+  height: 50px;
+}
+
+#returnBtn {
+  background-color: $basicdark;
+  border: 2px darken($basicdark, 15%) solid;
+
+  min-width: 240px;
+
+  color: white;
+
+  font-size: 30px;
+
+  &:hover {
+    background-color: darken($basicdark, 10%);
+    border: 2px darken($basicdark, 20%) solid;
+  }
+
+  &:active {
+    background-color: darken($basicdark, 20%);
+  }
+}
+
+.seasonName {
+  width: 50%;
+}
+
+.seasonPoints {
+  width: 25%;
+}
+
+.seasonRole {
+  width: 25%;
 }
