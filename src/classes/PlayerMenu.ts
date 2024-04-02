@@ -7,7 +7,7 @@ class PlayerMenu {
   plrRoleElem: HTMLElement;
   key: string | undefined;
 
-  memberList: VentiMemberList;
+  memberList: VentiMemberData[];
 
   playerInfoElements: PlayerSeasonRow[] = [];
 
@@ -45,6 +45,7 @@ class PlayerMenu {
 
     if (key) {
       let playerData = this.memberList.find((player) => {
+        console.log(this.memberList)
         return player.id ? key === "id => " + String(player.id) : player.name === key;
       });
 
