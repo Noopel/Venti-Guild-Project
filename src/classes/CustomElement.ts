@@ -1,9 +1,16 @@
 class CustomElement {
   element: HTMLElement;
+  parent: CustomElement | HTMLElement | Element | undefined;
   children: CustomElement[] = [];
+  type: string;
+  defaultDisplay: string;
 
-  constructor(elemInfo: ElementInfo, parent: Element | HTMLElement) {
+  constructor(elemInfo: ElementInfo, parent: Element | HTMLElement | CustomElement) {
     let element = document.createElement(elemInfo.type);
+    this.parent = parent;
+    this.type = elemInfo.type;
+
+    this.element = element;
 
     if (elemInfo.id) {
       element.id = elemInfo.id;
@@ -32,17 +39,41 @@ class CustomElement {
       });
     }
 
-    parent
-      ? parent.appendChild(element)
-      : parent === null
-      ? console.log("WARNING! Parent was null for object:", element, elemInfo)
-      : null;
+    if (parent && parent instanceof CustomElement) {
+      parent.appendChild(this);
+    } else {
+      parent
+        ? parent.appendChild(element)
+        : parent === null
+        ? console.log("WARNING! Parent was null for object:", element, elemInfo)
+        : null;
+    }
 
-    this.element = element;
+    this.defaultDisplay = this.element.style.display;
+  }
+
+  set text(newText: string) {
+    this.element.innerText = newText;
+  }
+
+  set title(newTitle: string) {
+    this.element.title = newTitle;
+  }
+
+  set visible(newVisibility: boolean) {
+    if (newVisibility) {
+      this.setStyle("display", this.defaultDisplay);
+    } else {
+      this.setStyle("display", "none");
+    }
+  }
+
+  get visible() {
+    return this.element.style.display !== "none";
   }
 
   setStyle(style: string, value: string) {
-    this.element.style.setProperty(style, value)
+    this.element.style.setProperty(style, value);
   }
 
   hasClass(classQuery: string | string[]) {
@@ -65,24 +96,40 @@ class CustomElement {
     return this.element.id === id;
   }
 
+  appendChild(otherElement: CustomElement) {
+    if (otherElement.findChildWithElement(this)) {
+      console.error("ERROR: Attempted to parent a parent to it's child!!!");
+      return;
+    }
+    if (this.findChildWithElement(otherElement)) {
+      console.error("ERROR: 'Element' is already a child of element");
+      return;
+    }
+    console.log(this);
+    console.log(otherElement);
+    this.element.appendChild(otherElement.element);
+    this.children.push(otherElement);
+    otherElement.parent = this.element;
+  }
+
   findChild(query: ElementQuery, recursive?: boolean): CustomElement | null {
     let searchResult = null;
     for (let childElem of this.children) {
-      let failed = false
+      let failed = false;
 
       if (query.classQuery && !childElem.hasClass(query.classQuery)) {
-        failed = true
+        failed = true;
       }
       if (query.id && !childElem.hasId(query.id)) {
-        failed = true
+        failed = true;
       }
       if (query.type && query.type !== this.element.nodeName.toLowerCase()) {
-        failed = true
+        failed = true;
       }
 
       if (!failed) {
-        searchResult = childElem
-        break
+        searchResult = childElem;
+        break;
       } else if (childElem.children.length > 0 && recursive) {
         searchResult = childElem.findChild(query, recursive);
       }
@@ -91,10 +138,27 @@ class CustomElement {
     return searchResult;
   }
 
+  findChildWithElement(element: CustomElement, recursive?: boolean) {
+    let searchResult: null | CustomElement = null;
+    this.children.forEach((childElem) => {
+      if (searchResult) {
+        return;
+      }
+      if (childElem === element) {
+        searchResult = childElem;
+      } else if (childElem.children.length > 0 && recursive) {
+        searchResult = childElem.findChildWithElement(element, recursive);
+      }
+    });
+    return searchResult;
+  }
+
   findChildWithClass(className: string | string[], recursive?: boolean): CustomElement | null {
     let searchResult: null | CustomElement = null;
     this.children.forEach((childElem) => {
-      if (searchResult) {return}
+      if (searchResult) {
+        return;
+      }
       if (childElem.hasClass(className)) {
         searchResult = childElem;
       } else if (childElem.children.length > 0 && recursive) {
@@ -114,6 +178,24 @@ class CustomElement {
       }
     });
     return searchResult;
+  }
+
+  delete(recursiveParent?: CustomElement | HTMLElement | Element | undefined) {
+    if (this.parent && this.parent instanceof CustomElement && !recursiveParent) {
+      for (let i = 0; i < this.parent.children.length; i++) {
+        let child = this.parent.children[i];
+        if (child === this) {
+          delete this.parent.children[i];
+        }
+      }
+    }
+
+    this.children.forEach((childElem) => {
+      childElem.delete(this);
+    });
+
+    this.parent = undefined;
+    this.element.remove();
   }
 }
 

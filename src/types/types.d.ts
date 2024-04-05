@@ -14,6 +14,14 @@ interface ElementQuery {
   id: string;
   type: string;
 }
+
+interface CustomTableInfo {
+  headers: string[],
+  preCreatedRows?: number,
+  maxRows: number,
+  enablePaginations: boolean,
+}
+
 /* #endregion */
 
 enum Roles {
@@ -70,3 +78,5 @@ type compiledVentiGuildData = {
   seasonList: { [key: string]: SeasonalPlayerData[] };
 };
 /* #endregion */
+
+
