@@ -53,7 +53,7 @@
         <section class="col-12">
           <article class="row" id="seasonList"></article>
         </section>
-        <section class="col-12 col-sm-6 px-1">
+        <section class="col-12 col-md-6 px-1">
           <table class="table mb-0">
             <thead>
               <tr>
@@ -65,7 +65,7 @@
             <tbody id="playerList1"></tbody>
           </table>
         </section>
-        <section class="col-12 col-sm-6 px-1">
+        <section class="col-12 col-md-6 px-1">
           <table class="table">
             <thead>
               <tr class="d-sm-table-row d-none">
@@ -77,7 +77,7 @@
             <tbody id="playerList2"></tbody>
           </table>
         </section>
-        <section class="col-12" id="playerListPaginations"></section>
+        <section class="col-12 d-flex flex-wrap" id="playerListPaginations"></section>
       </article>
       <article class="row justify-content-center text-white" id="playerInfoContainer">
         <section class="col-12 text-end">
@@ -88,7 +88,7 @@
           <h5 id="plrInfoPoints">Total points earned: 9953</h5>
           <h5 id="plrInfoRole">Latest Role: Leader</h5>
         </section>
-        <section class="col-12 col-sm-6 px-1 my-5">
+        <section class="col-12 col-md-6 px-1 my-5">
           <table class="table">
             <thead>
               <tr class="d-sm-table-row d-none">
@@ -100,11 +100,12 @@
             <tbody id="playerInfoSeasonList"></tbody>
           </table>
         </section>
-      </article>
-      <article class="row">
-        <section class="col-12" id="tableTestContainer">
-
+        <section class="col-12 col-md-6 d-flex justify-content-center">
+          <canvas height="400" width="600" id="seasonChart"></canvas>
         </section>
+      </article>
+      <article class="row p-4" id="ventiLeaderboard">
+        
       </article>
     </main>
     <footer></footer>

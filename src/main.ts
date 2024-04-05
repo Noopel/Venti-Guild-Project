@@ -1,7 +1,6 @@
 import "./style.scss";
 import Leaderboard from "./classes/Leaderboard";
 import PlayerMenu from "./classes/PlayerMenu";
-import CustomTable from "./classes/CustomTable";
 
 /*Self-invoked function*/
 (async () => {
@@ -31,10 +30,5 @@ import CustomTable from "./classes/CustomTable";
         playerMenu.visible = false
         leaderboard.visible = true
       })
-
-
-      let test = document.querySelector("#tableTestContainer") as Element;
-      let table = new CustomTable({headers: ["First", "Second", "Last"], maxRows: 5, preCreatedRows: 5}, test, "leaderboard");
-      table.updateRow(1, ["HELLO", "Your mum", "Bingo"])
     });
 })();

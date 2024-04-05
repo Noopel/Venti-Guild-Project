@@ -60,6 +60,10 @@ class CustomElement {
     this.element.title = newTitle;
   }
 
+  set id(newId: string) {
+    this.element.id = newId
+  }
+
   set visible(newVisibility: boolean) {
     if (newVisibility) {
       this.setStyle("display", this.defaultDisplay);
