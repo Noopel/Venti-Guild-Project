@@ -18,7 +18,7 @@ header {
 }
 
 main {
-  background-color: $basicdark;
+  background-color: lighten($basicdark, 5%);
   min-height: 1200px;
 }
 
@@ -26,9 +26,13 @@ footer {
   background-color: $flax;
 }
 
+.bg-main-dark {
+  background-color: $basicdark;
+}
+
 #leaderboardContainer, #playerInfoContainer {
   padding: 20px;
-  background-color: lighten($basicdark, 5%);
+  background-color: none;
   
   
   caption {
@@ -145,13 +149,15 @@ $paginationColor: rgb(59, 59, 59);
   justify-content: center;
   align-items: baseline;
   margin-bottom: 20px;
-  gap: 0.8%
+
+  gap: 10px;
 }
 
 .seasonBtn {
   padding: 5px;
   background-color: darken($steel-blue, 10%);
-  border: 2px darken($steel-blue, 40%) solid;
+  border: none;
+  outline: darken($steel-blue, 40%) solid 2px;
   border-radius: 5px;
   
   font-size: 20px;
@@ -170,7 +176,8 @@ $paginationColor: rgb(59, 59, 59);
   }
 
   &.seasonBtnActive {
-    border: 3px darken($steel-blue, 40%) solid;
+    transition: ease-in-out 0.1s;
+    outline: darken($steel-blue, 40%) solid 3px;
     background-color: darken($activeBtn, 10%);
     &:hover {
       background-color: darken($activeBtn, 15%);
@@ -178,6 +185,10 @@ $paginationColor: rgb(59, 59, 59);
   
     &:active {
       background-color: darken($activeBtn, 25%);
+    }
+
+    &:focus {
+      outline: darken($steel-blue, 40%) solid 3px;
     }
   }
 }
@@ -215,6 +226,7 @@ $paginationColor: rgb(59, 59, 59);
 #returnBtn {
   background-color: $basicdark;
   border: 2px darken($basicdark, 15%) solid;
+  border-radius: 7px;
 
   min-width: 240px;
 
@@ -223,12 +235,13 @@ $paginationColor: rgb(59, 59, 59);
   font-size: 30px;
 
   &:hover {
-    background-color: darken($basicdark, 10%);
+    background-color: darken($basicdark, 6%);
     border: 2px darken($basicdark, 20%) solid;
   }
 
   &:active {
-    background-color: darken($basicdark, 20%);
+    background-color: darken($basicdark, 10%);
+    border: 3px darken($basicdark, 15%) solid;
   }
 }
 

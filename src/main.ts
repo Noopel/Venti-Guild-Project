@@ -2,6 +2,7 @@ import "./style.scss";
 import Leaderboard from "./classes/Leaderboard";
 import PlayerMenu from "./classes/PlayerMenu";
 import GuildOverview from "./classes/GuildOverview";
+import gsap from "gsap";
 
 /*Self-invoked function*/
 (async () => {
@@ -11,7 +12,6 @@ import GuildOverview from "./classes/GuildOverview";
       let GuildOverviewCon = document.querySelector("#guildOverview") as HTMLElement;
       new GuildOverview(ventiMemberList, GuildOverviewCon);
 
-
       let leaderboard = new Leaderboard(ventiMemberList);
       let playerMenu = new PlayerMenu(ventiMemberList);
 
@@ -19,21 +19,38 @@ import GuildOverview from "./classes/GuildOverview";
       let playerNameBtns = document.querySelectorAll(".playerButton") as NodeListOf<HTMLButtonElement>;
       let lastUpdatedTag = document.querySelector("#lastDataUpdate") as HTMLElement;
 
-      lastUpdatedTag.innerText = "Last updated: " + new Date(ventiMemberList.lastUpdated).toUTCString()
+      lastUpdatedTag.innerText = "Last updated: " + new Date(ventiMemberList.lastUpdated).toUTCString();
 
       playerNameBtns.forEach((button) => {
         button.addEventListener("click", () => {
-          if(button.dataset.key !== "" || button.dataset.key !== undefined) {
-            leaderboard.visible = false
-            playerMenu.key = button.dataset.key
-            playerMenu.visible = true
+          if (button.dataset.key !== "" || button.dataset.key !== undefined) {
+            gsap.fromTo(leaderboard.leaderboardContainer, {opacity: 1}, {
+              duration: 0.2,
+              opacity: 1,
+              display: "none",
+              onComplete: () => {
+                leaderboard.visible = false;
+                playerMenu.key = button.dataset.key;
+                playerMenu.visible = true;
+                gsap.fromTo(playerMenu.playerInfoContainer, {opacity: 0, display: "flex"}, {opacity: 1, duration: 0.2})
+              },
+            });
           }
         });
       });
 
-      returnBtn.addEventListener("click", ()=>{
-        playerMenu.visible = false
-        leaderboard.visible = true
-      })
+      returnBtn.addEventListener("click", () => {
+
+        gsap.fromTo(playerMenu.playerInfoContainer, {opacity: 1}, {
+          duration: 0.2,
+          opacity: 1,
+          display: "none",
+          onComplete: () => {
+            leaderboard.visible = true;
+            playerMenu.visible = false;
+            gsap.fromTo(leaderboard.leaderboardContainer, {opacity: 0, display: "flex"}, {opacity: 1, duration: 0.2})
+          },
+        });
+      });
     });
 })();

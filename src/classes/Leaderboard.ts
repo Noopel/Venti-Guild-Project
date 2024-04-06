@@ -1,6 +1,8 @@
+
 import CustomElement from "./CustomClasses/CustomElement";
 import Player from "./Player";
 import PlayerRow from "./PlayerRow";
+import gsap from "gsap";
 
 class Leaderboard {
   currentSeason: string = "All Seasons";
@@ -12,6 +14,9 @@ class Leaderboard {
 
   leaderboardContainer: HTMLElement;
 
+  paginationList: HTMLElement;
+  paginationState = false;
+
   currentPage = 1;
 
   constructor(ventiMemberList: compiledVentiGuildData) {
@@ -20,6 +25,8 @@ class Leaderboard {
     let playerList1Elem = document.querySelector("#playerList1") as HTMLElement;
     let playerList2Elem = document.querySelector("#playerList2") as HTMLElement;
     let playerListPaginationsElement = document.querySelector("#playerListPaginations") as HTMLElement;
+
+    this.paginationList = playerListPaginationsElement;
 
     /* #region Create all player data elements */
     for (let index = 0; index < 50; index++) {
@@ -64,6 +71,7 @@ class Leaderboard {
         { type: "div", innerText: String(1 + index * 50) + " - " + String((index + 1) * 50) },
         playerListPaginationsElement
       );
+      paginationElement.setStyle("opacity", "0")
       paginationElement.element.addEventListener("click", () => {
         if (this.currentPage === index + 1) {
           return;
@@ -100,13 +108,21 @@ class Leaderboard {
 
     /* UPDATE PAGINATIONS */
 
-    this.paginationElements.forEach((element, index) => {
-      if (this.currentSeason === "All Seasons") {
-        element.style.display = "block";
-      } else {
-        element.style.display = "none";
-      }
+    if(this.currentSeason === "All Seasons" && this.paginationState === false) {
+      this.paginationState = true;
+      gsap.fromTo(this.paginationList, {marginBottom: "-3rem"}, {marginBottom: "1rem", duration: 0.2})
+      this.paginationElements.forEach((element)=>{
+        gsap.fromTo(element, {opacity: 0,}, {opacity: 1, delay: 0.1, duration: 0.1})
+      })
+    } else if (this.currentSeason !== "All Seasons" && this.paginationState === true) {
+      this.paginationState = false
+      this.paginationElements.forEach((element)=>{
+        gsap.fromTo(element, {opacity: 1}, {opacity: 0, duration: 0.2})
+      })
+      gsap.fromTo(this.paginationList, {marginBottom: "1rem"}, {delay: 0.1, marginBottom: "-3rem", duration: 0.2})
+    }
 
+    this.paginationElements.forEach((element, index) => {
       if (index + 1 === this.currentPage) {
         element.classList.toggle("paginationActive", true);
       } else {
