@@ -1,5 +1,5 @@
-import CustomElement from "./CustomElement";
-import CustomTable from "./CustomTable";
+import CustomElement from "./CustomClasses/CustomElement";
+import CustomTable from "./CustomClasses/CustomTable";
 
 class VentiLeaderboard {
   headerElem: CustomElement;

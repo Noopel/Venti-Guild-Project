@@ -1,4 +1,4 @@
-import CustomElement from "./CustomElement";
+import CustomElement from "./CustomClasses/CustomElement";
 import gsap from "gsap";
 
 class PlayerSeasonRow {

@@ -3,7 +3,7 @@ $gold-metallic: rgb(255, 213, 60);
 $flax: rgb(255, 237, 137);
 $ivory: rgb(211, 206, 159);
 $smoky-black: #120b08ff;
-
+$activeBtn: rgb(70, 155, 77);
 $bordervalues: 1px rgb(12, 12, 12) solid;
 
 $basicdark: rgb(43, 43, 43);
@@ -71,10 +71,12 @@ footer {
 .playerRank {
   text-align: center;
   width: 10%;
+  min-width: 52.33px;
 }
 
 .playerName {
   width: 75%;
+  min-width: 196.22px;
 
   :hover {
     text-decoration: underline;
@@ -83,6 +85,7 @@ footer {
 
 .playerPoints {
   width: 15%;
+  min-width: 63.63px;
   text-align: center;
 }
 
@@ -164,6 +167,18 @@ $paginationColor: rgb(59, 59, 59);
 
   &:active {
     background-color: darken($steel-blue, 30%);
+  }
+
+  &.seasonBtnActive {
+    border: 3px darken($steel-blue, 40%) solid;
+    background-color: darken($activeBtn, 10%);
+    &:hover {
+      background-color: darken($activeBtn, 15%);
+    }
+  
+    &:active {
+      background-color: darken($activeBtn, 25%);
+    }
   }
 }
 

@@ -1,5 +1,4 @@
-import createElement from "../functions/createElement";
-import CustomElement from "./CustomElement";
+import CustomElement from "./CustomClasses/CustomElement";
 import Player from "./Player";
 import PlayerRow from "./PlayerRow";
 
@@ -7,6 +6,7 @@ class Leaderboard {
   currentSeason: string = "All Seasons";
   playerElements: PlayerRow[] = [];
   paginationElements: HTMLElement[] = [];
+  seasonButtonElements: CustomElement[] = [];
   seasonDataList: { [key: string]: SeasonalPlayerData[] };
   memberList: Player[] = [];
 
@@ -16,7 +16,7 @@ class Leaderboard {
 
   constructor(ventiMemberList: compiledVentiGuildData) {
     this.leaderboardContainer = document.querySelector("#leaderboardContainer") as HTMLElement;
-    let seasonListElem = document.querySelector("#seasonList");
+    let seasonListElem = document.querySelector("#seasonList") as HTMLElement;
     let playerList1Elem = document.querySelector("#playerList1") as HTMLElement;
     let playerList2Elem = document.querySelector("#playerList2") as HTMLElement;
     let playerListPaginationsElement = document.querySelector("#playerListPaginations") as HTMLElement;
@@ -43,7 +43,7 @@ class Leaderboard {
     })
 
     seasonButtonList.forEach((season) => {
-      let seasonBtn = createElement(
+      let seasonBtn = new CustomElement(
         {
           type: "button",
           id: season,
@@ -51,8 +51,10 @@ class Leaderboard {
           innerText: season === "All Seasons" ? season : "Season " + season.slice(6),
         },
         seasonListElem
-      ) as HTMLButtonElement;
-      seasonBtn.addEventListener("click", () => this.changeSeason(season));
+      );
+      seasonBtn.userdata["season"] = season
+      seasonBtn.element.addEventListener("click", () => this.changeSeason(season));
+      this.seasonButtonElements.push(seasonBtn)
     });
 
     let totalPaginations = Math.ceil(this.memberList.length / 50);
@@ -89,12 +91,12 @@ class Leaderboard {
       throw Error("SEASON IS NOT SET!!!");
     }
 
-    let seasonCaption = document.querySelector("#seasonCaption");
+/*     let seasonCaption = document.querySelector("#seasonCaption");
     if (seasonCaption && this.currentSeason != "All Seasons") {
       seasonCaption.innerHTML = "Season " + this.currentSeason.slice(6);
     } else if (seasonCaption) {
       seasonCaption.innerHTML = `${this.currentSeason}`;
-    }
+    } */
 
     /* UPDATE PAGINATIONS */
 
@@ -111,6 +113,15 @@ class Leaderboard {
         element.classList.toggle("paginationActive", false);
       }
     });
+
+    this.seasonButtonElements.forEach((customElem) =>{
+      let elemSeason = customElem.userdata["season"]
+      if(this.currentSeason === elemSeason) {
+        customElem.element.classList.toggle("seasonBtnActive", true)
+      } else {
+        customElem.element.classList.toggle("seasonBtnActive", false)
+      }
+    })
 
     /* FIX LATER WITH NEW PLAYER CLASS */
     this.playerElements.forEach((element, index) => {

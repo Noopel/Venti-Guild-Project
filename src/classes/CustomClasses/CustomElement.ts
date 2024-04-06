@@ -4,6 +4,7 @@ class CustomElement {
   children: CustomElement[] = [];
   type: string;
   defaultDisplay: string;
+  userdata: {[key: string]: any} = {};
 
   constructor(elemInfo: ElementInfo, parent: Element | HTMLElement | CustomElement) {
     let element = document.createElement(elemInfo.type);
