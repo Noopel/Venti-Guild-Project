@@ -10,12 +10,16 @@ class GuildOverview {
 
         let entries = Object.entries(ventiGuildData.seasonList)
 
+        const season3Points = 22873
+        const season6Points = 54670
+
         for(const[season, data] of entries) {
             let seasonKey = "Season " + season.slice(6)
 
             if(!totalSeasonData[seasonKey]){totalSeasonData[seasonKey] = 0}
 
             if(season === "season3"){continue}
+            if(season === "season4"){totalSeasonData["Season 6"] = season6Points}
 
             data.forEach((memberData)=>{
                 totalGuildPoints += memberData.points
@@ -23,10 +27,12 @@ class GuildOverview {
             })
         }
 
-        const season3Points = 22873
+        totalGuildPoints += season6Points
 
         totalGuildPoints += season3Points
         totalSeasonData["Season 3"] = season3Points
+
+        console.log(totalSeasonData)
 
         let guildTotalElem = document.querySelector("#guildTotalData") as HTMLElement;
         guildTotalElem.innerHTML = "Total points earned: <span class='fw-bold'>" + totalGuildPoints + "</span>"
