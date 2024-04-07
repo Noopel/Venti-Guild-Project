@@ -15,11 +15,18 @@ class GuildOverview {
 
             if(!totalSeasonData[seasonKey]){totalSeasonData[seasonKey] = 0}
 
+            if(season === "season3"){continue}
+
             data.forEach((memberData)=>{
                 totalGuildPoints += memberData.points
                 totalSeasonData[seasonKey] += memberData.points
             })
         }
+
+        const season3Points = 22873
+
+        totalGuildPoints += season3Points
+        totalSeasonData["Season 3"] = season3Points
 
         let guildTotalElem = document.querySelector("#guildTotalData") as HTMLElement;
         guildTotalElem.innerHTML = "Total points earned: <span class='fw-bold'>" + totalGuildPoints + "</span>"
