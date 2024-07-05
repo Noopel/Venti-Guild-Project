@@ -14,13 +14,13 @@ class PlayerMenu {
   chartElem: HTMLCanvasElement;
   activeChart: Chart | undefined;
 
-  static RoleConvert = ["Member", "Captain", "Elite", "Leader", "Previous Member"];
-  static RoleColors = ["rgba(255, 255, 255, 1)", "rgba(0, 100, 255, 1)", "rgba(255, 0, 255, 1)", "rgba(255, 255, 0, 1)", "rgba(180, 180, 180, 1)"];
+  static RoleConvert = ["Previous Member", "Member", "Captain", "Elite", "Leader"];
+  static RoleColors = ["rgba(180, 180, 180, 1)", "rgba(255, 255, 255, 1)", "rgba(0, 100, 255, 1)", "rgba(255, 0, 255, 1)", "rgba(255, 255, 0, 1)"];
 
   constructor(guildData: compiledVentiGuildData) {
     this.playerInfoContainer = document.querySelector("#playerInfoContainer") as HTMLElement;
     this.chartElem = document.querySelector("#seasonChart") as HTMLCanvasElement;
-    console.log(this.chartElem)
+    console.log(this.chartElem);
 
     this.plrNameElem = document.querySelector("#plrInfoName") as HTMLElement;
     this.plrPointsElem = document.querySelector("#plrInfoPoints") as HTMLElement;
@@ -44,19 +44,17 @@ class PlayerMenu {
 
     if (key) {
       let playerData = this.memberList.find((player) => {
-        return player.id ? key === "id => " + String(player.id) : player.name === key;
+        return player.userid ? key === "id => " + String(player.userid) : player.displayName === key;
       });
 
       if (playerData) {
-        let entries = Object.entries(playerData.seasonList);
-
-        let latestRole = playerData.latestRole !== undefined ? playerData.latestRole : 4;
+        let latestRole = playerData.role !== undefined ? playerData.role : 4;
 
         if (this.plrNameElem) {
-          this.plrNameElem.innerHTML = playerData.id
-            ? playerData.rbxUserData.displayName +
-              ` <span class='fst-italic text-white opacity-50' title="username = ${playerData.rbxUserData.name}, userId = ${playerData.id}">?</span>`
-            : playerData.name;
+          this.plrNameElem.innerHTML = playerData.userid
+            ? playerData.displayName +
+              ` <span class='fst-italic text-white opacity-50' title="username = ${playerData.displayName}, userId = ${playerData.userid}">?</span>`
+            : playerData.displayName;
           this.plrNameElem.style.color = PlayerMenu.RoleColors[latestRole] || PlayerMenu.RoleColors[0];
         }
 
@@ -66,20 +64,24 @@ class PlayerMenu {
         this.plrRoleElem ? (this.plrRoleElem.innerHTML = "Latest Role: " + latestRoleColor) : undefined;
 
         this.playerInfoElements.forEach((plrRowElem, index) => {
-          if (entries[index]) {
-            plrRowElem.changeSeason(entries[index][0], entries[index][1].points, PlayerMenu.RoleConvert[entries[index][1].role]);
+          if (playerData.seasonList[index]) {
+            plrRowElem.changeSeason(
+              playerData.seasonList[index].season,
+              playerData.seasonList[index].points,
+              PlayerMenu.RoleConvert[playerData.seasonList[index].role]
+            );
           } else {
             plrRowElem.clearRow();
           }
         });
 
-        let seasonLabels = []
-        let seasonValues = []
+        let seasonLabels: string[] = [];
+        let seasonValues: number[] = [];
 
-        for(const[season, data] of entries) {
-          seasonLabels.push("Season "+season.slice(6))
-          seasonValues.push(data.points)
-        } 
+        playerData.seasonList.forEach((seasonInfo) => {
+          seasonLabels.push("Season " + seasonInfo.season);
+          seasonValues.push(seasonInfo.points);
+        });
 
         this.activeChart = new Chart(this.chartElem, {
           type: "bar",
@@ -99,14 +101,14 @@ class PlayerMenu {
               y: {
                 beginAtZero: true,
                 ticks: {
-                  color: "white"
-                }
+                  color: "white",
+                },
               },
               x: {
                 ticks: {
-                  color: "white"
-                }
-              }
+                  color: "white",
+                },
+              },
             },
             backgroundColor: "rgb(255, 213, 60)",
           },
@@ -123,9 +125,9 @@ class PlayerMenu {
       this.playerInfoContainer.style.display = "flex";
     } else {
       this.playerInfoContainer.style.display = "none";
-      if(this.activeChart) {
-        this.activeChart.destroy()
-        this.activeChart = undefined
+      if (this.activeChart) {
+        this.activeChart.destroy();
+        this.activeChart = undefined;
       }
     }
   }

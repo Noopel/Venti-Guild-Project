@@ -33,9 +33,9 @@ class PlayerSeasonRow {
     this.roleElem = roleElem.element;
   }
 
-  changeSeason(seasonName: string, points: number, role: string) {
+  changeSeason(season: number, points: number, role: string) {
     this.rowElement.style.display = "table-row"
-    this.seasonElem.innerHTML = "Season " + seasonName.slice(6);
+    this.seasonElem.innerHTML = "Season " + season;
     gsap.fromTo(this.pointsElem, { color: "rgba(255,255,255,0)", x: 5 }, { color: "rgba(255,255,255,1)", x: 0, duration: 0.25});
     this.pointsElem.innerHTML = String(points);
     this.roleElem.innerHTML = String(role)

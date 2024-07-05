@@ -3,11 +3,11 @@ import gsap from "gsap";
 
 class PlayerRow {
   static RoleColors = [
+    "rgba(180, 180, 180, 1)",
     "rgba(255, 255, 255, 1)",
     "rgba(0, 100, 255, 1)",
     "rgba(255, 0, 255, 1)",
     "rgba(255, 255, 0, 1)",
-    "rgba(180, 180, 180, 1)",
   ];
 
   key: string | undefined;
@@ -73,7 +73,7 @@ class PlayerRow {
   }
 
   changePlayer(playerData: SeasonalPlayerData, newRank?: number) {
-    this.key = playerData.id ? "id => " + String(playerData.id) : playerData.name;
+    this.key = playerData.userid ? "id => " + String(playerData.userid) : playerData.displayName;
     this.playerBtn.dataset.key = this.key;
     this.playerBtn.disabled = false;
     
@@ -96,10 +96,10 @@ class PlayerRow {
         this.rankElem.style.fontWeight = "normal";
       }
     }
-    this.nameElem.innerHTML = playerData.name;
-    if (playerData.id) {
+    this.nameElem.innerHTML = playerData.displayName;
+    if (playerData.userid) {
       this.checkMarkElem.innerText = "✔️";
-      this.checkMarkElem.title = "Verified userid: " + String(playerData.id);
+      this.checkMarkElem.title = "Verified userid: " + String(playerData.userid);
     } else {
       this.checkMarkElem.innerText = "";
       this.checkMarkElem.title = "";

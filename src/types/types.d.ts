@@ -32,10 +32,10 @@ enum Roles {
 }
 
 type SeasonalPlayerData = {
-  name: string;
+  displayName: string;
   points: number;
   role: number;
-  id?: number;
+  userid?: number;
 };
 
 /* #region Imported data set types */
@@ -55,21 +55,17 @@ type rbxUserData = {
   displayName: string;
 };
 
-type SeasonMemberData = {
-  points: number;
-  role: number;
-};
 
 type VentiMemberData = {
-  name: string;
+  displayName: string;
   totalPoints: number;
-  latestRole: number;
-  seasonList: { [key: string]: SeasonalMemberData };
-  id?: number;
-  rbxUserData: rbxUserData;
+  role: number;
+  seasonList: [{season: number, points: number, role: number}];
+  userid?: number;
+  username?: string;
 };
 
-type SeasonalData = { [key: string]: SeasonalPlayerData[] };
+type SeasonalData = {season: number, points: number, role: number}[];
 
 type compiledVentiGuildData = {
   lastUpdated: string;

@@ -8,38 +8,36 @@ class Player {
   id?: number;
   validated: boolean = false;
 
-  seasonList: { [key: string]: SeasonMemberData } = {};
+  seasonList: SeasonalData = [];
 
   constructor(memberData: VentiMemberData) {
-    this.name = memberData.name;
-    this.submittedName = memberData.name;
+    this.name = memberData.displayName;
+    this.submittedName = memberData.displayName;
     this.totalPoints = memberData.totalPoints;
-    this.latestRole = memberData.latestRole;
+    this.latestRole = memberData.role;
 
-    this.id = memberData.id
+    this.id = memberData.userid;
 
-    if(memberData.rbxUserData) {
-      this.name = memberData.rbxUserData.displayName;
-      this.displayName = memberData.rbxUserData.displayName;
+    if (memberData.userid || memberData.username) {
       this.validated = true;
-      this.username = memberData.rbxUserData.name
     }
 
-    this.seasonList = memberData.seasonList
+    this.seasonList = memberData.seasonList;
   }
 
   hasSeasonData(season: string): boolean {
-    return this.seasonList.hasOwnProperty(season)
+    return this.seasonList.hasOwnProperty(season);
   }
 
   getSeasonData(season: string): SeasonalPlayerData | undefined {
-    if(this.seasonList[season]) {
-      return {name: this.name, points: this.seasonList[season].points, role: this.seasonList[season].role, id: this.id || undefined}
+    const seasonData = this.seasonList.find((seasonInfo) => "season" + seasonInfo.season === season);
+    if (seasonData) {
+      return { displayName: this.name, points: seasonData.points, role: seasonData.role, userid: this.id || undefined };
     }
   }
 
   getForAllSeasons() {
-    return {name: this.name, points: this.totalPoints, role: this.latestRole, id: this.id || undefined}
+    return { displayName: this.name, points: this.totalPoints, role: this.latestRole, userid: this.id || undefined };
   }
 }
 

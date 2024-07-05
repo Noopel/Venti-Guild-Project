@@ -6,9 +6,10 @@ import gsap from "gsap";
 
 /*Self-invoked function*/
 (async () => {
-  fetch("https://noopel.github.io/data-storage/Data/ventiGuildDataCompiled.json")
+  fetch("https://noopel.github.io/data-storage/Data/ventiGuildDataCompiled.json", {cache: "no-store"})
     .then((response) => response.json())
     .then((ventiMemberList: compiledVentiGuildData) => {
+      console.log(ventiMemberList)
       let GuildOverviewCon = document.querySelector("#guildOverview") as HTMLElement;
       new GuildOverview(ventiMemberList, GuildOverviewCon);
 
