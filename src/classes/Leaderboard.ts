@@ -36,6 +36,7 @@ class Leaderboard {
       this.showNonMembers = checkbox.checked
       console.log(this.currentSeason)
       if(this.currentSeason === "All Seasons") {
+        this.currentPage = 1
         this.updateLeaderboard()
       }
     })
