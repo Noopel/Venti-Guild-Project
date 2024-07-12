@@ -262,3 +262,13 @@ $paginationColor: rgb(59, 59, 59);
 #seasonChart {
   min-height: 300px;
 }
+
+#nonMembersLabel {
+  &:hover {
+   text-decoration: underline; 
+  }
+
+  &:active {
+    font-weight: bold;
+  }
+}

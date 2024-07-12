@@ -11,11 +11,14 @@ class Leaderboard {
   seasonButtonElements: CustomElement[] = [];
   seasonDataList: { [key: string]: SeasonalPlayerData[] };
   memberList: Player[] = [];
+  onlyMembersList: Player[] = [];
 
   leaderboardContainer: HTMLElement;
 
   paginationList: HTMLElement;
   paginationState = false;
+
+  showNonMembers: boolean = false;
 
   currentPage = 1;
 
@@ -25,6 +28,17 @@ class Leaderboard {
     let playerList1Elem = document.querySelector("#playerList1") as HTMLElement;
     let playerList2Elem = document.querySelector("#playerList2") as HTMLElement;
     let playerListPaginationsElement = document.querySelector("#playerListPaginations") as HTMLElement;
+    let showNonMembersCheckbox = document.querySelector("#nonMembersCheckbox") as HTMLInputElement;
+
+    //Setup checkbox
+    showNonMembersCheckbox.addEventListener("click", (e) => {
+      const checkbox = e.target as HTMLInputElement;
+      this.showNonMembers = checkbox.checked
+      console.log(this.currentSeason)
+      if(this.currentSeason === "All Seasons") {
+        this.updateLeaderboard()
+      }
+    })
 
     this.paginationList = playerListPaginationsElement;
 
@@ -37,13 +51,18 @@ class Leaderboard {
     /* #endregion */
 
     ventiMemberList.memberList.forEach((memberData)=>{
-      this.memberList.push(new Player(memberData))
+      const playerObject = new Player(memberData)
+      this.memberList.push(playerObject)
+      if(memberData.role !== 0) {
+        this.onlyMembersList.push(playerObject)
+      }
     })
 
     this.seasonDataList = ventiMemberList.seasonList
     console.log(this.seasonDataList)
     let seasonButtonList = ["All Seasons"];
 
+    //Getting all season titles into an array for buttons
     let seasonEntries = Object.entries(ventiMemberList.seasonList)
     seasonEntries.forEach((seasonData)=>{
       seasonButtonList.push(seasonData[0])
@@ -107,14 +126,13 @@ class Leaderboard {
     } */
 
     /* UPDATE PAGINATIONS */
-
-    if(this.currentSeason === "All Seasons" && this.paginationState === false) {
+    if(this.currentSeason === "All Seasons" && this.paginationState === false && this.showNonMembers) {
       this.paginationState = true;
       gsap.fromTo(this.paginationList, {marginBottom: "-3rem"}, {marginBottom: "1rem", duration: 0.2})
       this.paginationElements.forEach((element)=>{
         gsap.fromTo(element, {opacity: 0,}, {opacity: 1, delay: 0.1, duration: 0.1})
       })
-    } else if (this.currentSeason !== "All Seasons" && this.paginationState === true) {
+    } else if (this.currentSeason !== "All Seasons" && this.paginationState === true || this.currentSeason === "All Seasons" && this.paginationState === true && !this.showNonMembers) {
       this.paginationState = false
       this.paginationElements.forEach((element)=>{
         gsap.fromTo(element, {opacity: 1}, {opacity: 0, duration: 0.2})
@@ -130,6 +148,7 @@ class Leaderboard {
       }
     });
 
+    //Updates the season button so only the active one is highlighted
     this.seasonButtonElements.forEach((customElem) =>{
       let elemSeason = customElem.userdata["season"]
       if(this.currentSeason === elemSeason) {
@@ -145,8 +164,14 @@ class Leaderboard {
       let playerData;
 
       if (this.currentSeason === "All Seasons") {
-        if (this.memberList[index + (this.currentPage - 1) * 50]) {
-          playerData = this.memberList[index + (this.currentPage - 1) * 50].getForAllSeasons();
+        if(!this.showNonMembers) {
+          if (this.onlyMembersList[index + (this.currentPage - 1) * 50]) {
+            playerData = this.onlyMembersList[index + (this.currentPage - 1) * 50].getForAllSeasons();
+          }
+        } else {
+          if (this.memberList[index + (this.currentPage - 1) * 50]) {
+            playerData = this.memberList[index + (this.currentPage - 1) * 50].getForAllSeasons();
+          }
         }
       } else {
         playerData = this.seasonDataList[this.currentSeason][index];
