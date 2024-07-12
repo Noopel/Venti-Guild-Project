@@ -16,7 +16,7 @@ class PlayerSeasonRow {
         children: [
           { type: "td", class: ["seasonName"], children: [{ type: "p", class: ["seasonNameText", "d-flex", "flex-row", "align-items-center"] }] },
           { type: "td", class: ["seasonPoints"], children: [{ type: "p", class: ["seasonPointsText", "text-center"] }] },
-          { type: "td", class: ["seasonRole"], children: [{ type: "p", class: ["SeasonRoleText", "text-center"] }] }
+          { type: "td", class: ["seasonRole", "fw-bold"], children: [{ type: "p", class: ["SeasonRoleText", "text-center"] }] }
         ],
       },
       list
@@ -33,12 +33,13 @@ class PlayerSeasonRow {
     this.roleElem = roleElem.element;
   }
 
-  changeSeason(season: number, points: number, role: string) {
+  changeSeason(season: number, points: number, roleColor: string, roleName: string) {
     this.rowElement.style.display = "table-row"
     this.seasonElem.innerHTML = "Season " + season;
     gsap.fromTo(this.pointsElem, { color: "rgba(255,255,255,0)", x: 5 }, { color: "rgba(255,255,255,1)", x: 0, duration: 0.25});
     this.pointsElem.innerHTML = String(points);
-    this.roleElem.innerHTML = String(role)
+    this.roleElem.style.color = roleColor
+    this.roleElem.innerHTML = roleName
 
     let color = "rgba(255,255,255,1)";
 

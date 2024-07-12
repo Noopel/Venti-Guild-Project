@@ -68,6 +68,7 @@ class PlayerMenu {
             plrRowElem.changeSeason(
               playerData.seasonList[index].season,
               playerData.seasonList[index].points,
+              PlayerMenu.RoleColors[playerData.seasonList[index].role],
               PlayerMenu.RoleConvert[playerData.seasonList[index].role]
             );
           } else {
