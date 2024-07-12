@@ -158,6 +158,7 @@ class PlayerRow {
           duration: 0.05,
           x: 3,
           color: `rgba(${nameColor}, 0)`,
+          onComplete: () => {this.nameElem.innerHTML = ""}
         }
       );
       gsap.fromTo(
