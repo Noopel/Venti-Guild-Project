@@ -36,6 +36,7 @@ type SeasonalPlayerData = {
   points: number;
   role: number;
   userid?: number;
+  username?: string;
 };
 
 /* #region Imported data set types */

@@ -2,7 +2,7 @@ class Player {
   name: string = "???";
   submittedName: string = "???";
   displayName: string = "";
-  username: string = "";
+  username?: string = "";
   totalPoints: number = 0;
   latestRole: number = 0;
   id?: number;
@@ -12,6 +12,7 @@ class Player {
 
   constructor(memberData: VentiMemberData) {
     this.name = memberData.displayName;
+    this.username = memberData.username;
     this.submittedName = memberData.displayName;
     this.totalPoints = memberData.totalPoints;
     this.latestRole = memberData.role;
@@ -37,7 +38,7 @@ class Player {
   }
 
   getForAllSeasons() {
-    return { displayName: this.name, points: this.totalPoints, role: this.latestRole, userid: this.id || undefined };
+    return { displayName: this.name, username: this.username || undefined, points: this.totalPoints, role: this.latestRole, userid: this.id || undefined };
   }
 }
 

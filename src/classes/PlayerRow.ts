@@ -2,13 +2,7 @@ import CustomElement from "./CustomClasses/CustomElement";
 import gsap from "gsap";
 
 class PlayerRow {
-  static RoleColors = [
-    "rgba(180, 180, 180, 1)",
-    "rgba(255, 255, 255, 1)",
-    "rgba(0, 100, 255, 1)",
-    "rgba(255, 0, 255, 1)",
-    "rgba(255, 255, 0, 1)",
-  ];
+  static RoleColors = ["rgba(180, 180, 180, 1)", "rgba(255, 255, 255, 1)", "rgba(0, 100, 255, 1)", "rgba(255, 0, 255, 1)", "rgba(255, 255, 0, 1)"];
 
   key: string | undefined;
   row: CustomElement;
@@ -76,7 +70,7 @@ class PlayerRow {
     this.key = playerData.userid ? "id => " + String(playerData.userid) : playerData.displayName;
     this.playerBtn.dataset.key = this.key;
     this.playerBtn.disabled = false;
-    
+
     if (newRank) {
       this.rankElem.innerText = newRank == 1 ? "👑" : `#${newRank}`;
       if (newRank <= 3) {
@@ -96,7 +90,8 @@ class PlayerRow {
         this.rankElem.style.fontWeight = "normal";
       }
     }
-    this.nameElem.innerHTML = playerData.displayName;
+    this.nameElem.innerHTML =
+      `<span class="playerNameSpan">${playerData.displayName}</span>` + (playerData.username ? `<span class="text-white ms-2 playerUsernameSpan" style="font-size: 12px;"> @${playerData.username}</span>` : "");
     if (playerData.userid) {
       this.checkMarkElem.innerText = "✔️";
       this.checkMarkElem.title = "Verified userid: " + String(playerData.userid);
@@ -104,17 +99,12 @@ class PlayerRow {
       this.checkMarkElem.innerText = "";
       this.checkMarkElem.title = "";
     }
-    gsap.fromTo(
-      this.pointsElem,
-      { color: "rgba(255,255,255,0)", x: 5 },
-      { color: "rgba(255,255,255,1)", x: 0, duration: 0.25 }
-    );
+    this.checkMarkElem.innerText = "";
+    this.checkMarkElem.title = "";
 
-    gsap.fromTo(
-      this.checkMarkElem,
-      { color: "rgba(255,255,255,0)", x: 5 },
-      { color: "rgba(255,255,255,1)", x: 0, duration: 0.25 }
-    );
+    gsap.fromTo(this.pointsElem, { color: "rgba(255,255,255,0)", x: 5 }, { color: "rgba(255,255,255,1)", x: 0, duration: 0.25 });
+
+    gsap.fromTo(this.checkMarkElem, { color: "rgba(255,255,255,0)", x: 5 }, { color: "rgba(255,255,255,1)", x: 0, duration: 0.25 });
 
     this.pointsElem.innerHTML = String(playerData.points);
 
