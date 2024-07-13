@@ -138,6 +138,10 @@ $paginationColor: rgb(59, 59, 59);
 
     padding: 2px;
   }
+
+  & .paginationDisabled {
+    display: none;
+  }
 }
 
 #seasonList {

@@ -88,7 +88,7 @@ class Leaderboard {
 
     for (let index = 0; index < totalPaginations; index++) {
       let paginationElement = new CustomElement(
-        { type: "div", innerText: String(1 + index * 50) + " - " + String((index + 1) * 50) },
+        { type: "div", class: ["paginationDisabled"], innerText: String(1 + index * 50) + " - " + String((index + 1) * 50) },
         playerListPaginationsElement
       );
       paginationElement.setStyle("opacity", "0")
@@ -131,12 +131,13 @@ class Leaderboard {
       this.paginationState = true;
       gsap.fromTo(this.paginationList, {marginBottom: "-3rem"}, {marginBottom: "1rem", duration: 0.2})
       this.paginationElements.forEach((element)=>{
+        element.classList.toggle("paginationDisabled", false)
         gsap.fromTo(element, {opacity: 0,}, {opacity: 1, delay: 0.1, duration: 0.1})
       })
     } else if (this.currentSeason !== "All Seasons" && this.paginationState === true || this.currentSeason === "All Seasons" && this.paginationState === true && !this.showNonMembers) {
       this.paginationState = false
       this.paginationElements.forEach((element)=>{
-        gsap.fromTo(element, {opacity: 1}, {opacity: 0, duration: 0.2})
+        gsap.fromTo(element, {opacity: 1}, {opacity: 0, duration: 0.2, onComplete: ()=>{element.classList.toggle("paginationDisabled", true)}})
       })
       gsap.fromTo(this.paginationList, {marginBottom: "1rem"}, {delay: 0.1, marginBottom: "-3rem", duration: 0.2})
     }
